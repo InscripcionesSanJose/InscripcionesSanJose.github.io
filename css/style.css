@@ -260,12 +260,23 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .tarjeta-nivel:hover { transform: translateY(-4px); box-shadow: var(--sombra-hover); }
 
-.tarjeta-nivel .tarjeta-nivel-img {
-  width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
-  display: block;
+.tarjeta-nivel .tarjeta-nivel-insignia {
+  background: linear-gradient(165deg, var(--azul-tinte) 0%, var(--blanco) 75%);
+  padding: 34px 22px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.tarjeta-nivel .tarjeta-nivel-insignia img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  filter: drop-shadow(0 12px 18px rgba(22, 48, 92, 0.20));
+  transition: transform 0.2s ease;
+}
+
+.tarjeta-nivel:hover .tarjeta-nivel-insignia img { transform: scale(1.03); }
 
 .tarjeta-nivel-contenido {
   padding: 20px 22px 24px;
@@ -316,69 +327,101 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ============================================================
-   NIVEL — nivel.html (grilla de grados)
+   NIVEL — nivel.html (banner del nivel + grados en cuadritos)
    ============================================================ */
 
-.encabezado-nivel {
-  padding: 46px 0 30px;
-  border-bottom: 1px solid var(--borde);
+.hero-nivel { padding: 22px 0 0; }
+
+.hero-nivel-img-cont {
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  line-height: 0;
 }
 
-.encabezado-nivel .pastilla { margin-bottom: 14px; }
-.encabezado-nivel h1 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); color: var(--azul); }
-.encabezado-nivel p { max-width: 560px; margin-top: 10px; }
+.hero-nivel-img-cont img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
-.grados-seccion { padding: 40px 0 70px; }
+.panel-grados {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-hover);
+  margin: -44px 0 0;
+  padding: 36px 32px 8px;
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 640px) {
+  .panel-grados { margin-top: -28px; padding: 26px 20px 4px; }
+}
+
+.panel-grados .pastilla { margin-bottom: 12px; }
+.panel-grados h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); color: var(--azul); margin-bottom: 8px; }
+.panel-grados > p { max-width: 560px; margin-bottom: 26px; }
+
+.grados-seccion { padding: 0 0 70px; }
 
 .grados-grilla {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-  gap: 20px;
-  position: relative;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 18px;
 }
 
 .tarjeta-grado {
-  background: var(--blanco);
-  border: 1px solid var(--borde);
-  border-radius: var(--radio);
-  padding: 24px 22px;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radio-chico);
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  justify-content: flex-end;
+  color: var(--blanco);
+  background: linear-gradient(155deg, var(--azul-medio) 0%, var(--azul-oscuro) 100%);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.tarjeta-grado:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--sombra);
-  border-color: transparent;
+.tarjeta-grado::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 8%, rgba(244, 180, 0, 0.30), transparent 55%);
+  pointer-events: none;
 }
 
-.tarjeta-grado .indice {
+.tarjeta-grado:hover { transform: translateY(-4px); box-shadow: var(--sombra); }
+
+.tarjeta-grado .edad {
+  position: relative;
   font-family: var(--fuente-mono);
-  font-size: 0.72rem;
-  color: var(--texto-suave);
+  font-size: 0.68rem;
+  color: var(--amarillo);
+  margin-bottom: 4px;
 }
 
-.tarjeta-grado h3 { font-size: 1.28rem; color: var(--azul); }
-.tarjeta-grado p { font-size: 0.88rem; margin: 0; }
-
-.tarjeta-grado .pie {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 6px;
+.tarjeta-grado h3 {
+  position: relative;
+  font-size: 1.35rem;
+  color: var(--blanco);
+  margin-bottom: 8px;
 }
 
 .tarjeta-grado .ver-mas {
+  position: relative;
   font-weight: 600;
-  font-size: 0.86rem;
-  color: var(--azul-medio);
+  font-size: 0.82rem;
+  color: var(--blanco);
+  opacity: 0.9;
   display: inline-flex;
   align-items: center;
   gap: 4px;
 }
+.tarjeta-grado .ver-mas svg { transition: transform 0.15s ease; }
+.tarjeta-grado:hover .ver-mas svg { transform: translateX(4px); }
 
 /* ============================================================
    GRADO — grado.html (detalle: fotos, descripción, inscribirse)

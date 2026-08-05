@@ -25,14 +25,22 @@
 </header>
 
 <main>
-  <section class="encabezado-nivel envoltura">
-    <span class="pastilla" id="nivel-pastilla"></span>
-    <h1 id="nivel-titulo"></h1>
-    <p id="nivel-descripcion"></p>
+  <section class="hero-nivel envoltura">
+    <div class="hero-nivel-img-cont">
+      <img id="nivel-banner-img" src="" alt="">
+    </div>
   </section>
 
-  <section class="grados-seccion envoltura">
-    <div class="grados-grilla" id="grados-cont"></div>
+  <section class="envoltura">
+    <div class="panel-grados">
+      <span class="pastilla" id="nivel-pastilla"></span>
+      <h2 id="nivel-titulo"></h2>
+      <p id="nivel-descripcion"></p>
+
+      <div class="grados-seccion">
+        <div class="grados-grilla" id="grados-cont"></div>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -46,9 +54,6 @@
 <script src="js/data.js"></script>
 <script src="js/iconos.js"></script>
 <script src="js/main.js"></script>
-<script>
-  initNivel();
-  document.getElementById("nivel-titulo-miga").textContent = document.getElementById("nivel-titulo").textContent;
-</script>
+<script>initNivel();</script>
 </body>
 </html>

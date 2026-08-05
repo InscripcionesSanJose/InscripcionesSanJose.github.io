@@ -22,7 +22,9 @@ function initInicio() {
   NIVELES.forEach((nivel) => {
     const tarjeta = crearElemento(`
       <a class="tarjeta-nivel" href="nivel.html?nivel=${nivel.id}">
-        <img class="tarjeta-nivel-img" src="${nivel.imagen}" alt="${nivel.nombre}">
+        <div class="tarjeta-nivel-insignia">
+          <img src="${nivel.imagen}" alt="Insignia de ${nivel.nombre}">
+        </div>
         <div class="tarjeta-nivel-contenido">
           <span class="lema">${nivel.lema}</span>
           <p>${nivel.descripcion}</p>
@@ -71,23 +73,24 @@ function initNivel() {
   const nivel = obtenerNivel(nivelId) || NIVELES[0];
   const grados = gradosPorNivel(nivel.id);
 
+  $("#nivel-banner-img").src = nivel.banner;
+  $("#nivel-banner-img").alt = `Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José`;
+
   $("#nivel-pastilla").textContent = nivel.nombre;
   if (nivel.color === "amarillo") $("#nivel-pastilla").classList.add("amarilla");
-  $("#nivel-titulo").textContent = nivel.nombre;
+  $("#nivel-titulo").textContent = `Grados de ${nivel.nombre}`;
   $("#nivel-descripcion").textContent = nivel.descripcion;
   document.title = `${nivel.nombre} — Registro Real Colegio San José`;
+  const miga = $("#nivel-titulo-miga");
+  if (miga) miga.textContent = nivel.nombre;
 
   const cont = $("#grados-cont");
-  grados.forEach((grado, i) => {
+  grados.forEach((grado) => {
     const tarjeta = crearElemento(`
       <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
-        <span class="indice">Grado ${i + 1} de ${grados.length}</span>
+        <span class="edad">${grado.edad}</span>
         <h3>${grado.nombre}</h3>
-        <p>${grado.descripcionCorta}</p>
-        <div class="pie">
-          <span class="pastilla">${grado.edad}</span>
-          <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
-        </div>
+        <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
       </a>
     `);
     cont.appendChild(tarjeta);

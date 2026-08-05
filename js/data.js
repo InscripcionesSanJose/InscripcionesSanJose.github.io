@@ -11,7 +11,8 @@ const NIVELES = [
     lema: "Los primeros pasos",
     descripcion: "El punto de partida: juego, exploración y las primeras letras.",
     color: "amarillo",
-    imagen: "assets/nivel-preescolar.png"
+    imagen: "assets/nivel-preescolar.png",
+    banner: "assets/banner-preescolar.png"
   },
   {
     id: "primaria",
@@ -19,7 +20,8 @@ const NIVELES = [
     lema: "Construyendo las bases",
     descripcion: "De Primero a Quinto, donde se afianzan la lectura, la escritura y el pensamiento lógico.",
     color: "azul",
-    imagen: "assets/nivel-primaria.png"
+    imagen: "assets/nivel-primaria.png",
+    banner: "assets/banner-primaria.png"
   },
   {
     id: "secundaria",
@@ -27,7 +29,8 @@ const NIVELES = [
     lema: "Rumbo a la universidad",
     descripcion: "De Sexto a Once, formación integral y preparación para la vida después del colegio.",
     color: "azulOscuro",
-    imagen: "assets/nivel-secundaria.png"
+    imagen: "assets/nivel-secundaria.png",
+    banner: "assets/banner-secundaria.png"
   }
 ];
 
