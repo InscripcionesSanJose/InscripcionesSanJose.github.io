@@ -19,14 +19,15 @@ function crearElemento(html) {
 
 function initInicio() {
   const cont = $("#niveles-cont");
-  NIVELES.forEach((nivel, i) => {
+  NIVELES.forEach((nivel) => {
     const tarjeta = crearElemento(`
-      <a class="tarjeta-nivel n-${nivel.id}" href="nivel.html?nivel=${nivel.id}">
-        <span class="num">0${i + 1}</span>
-        <div class="lema">${nivel.lema}</div>
-        <h2>${nivel.nombre}</h2>
-        <p>${nivel.descripcion}</p>
-        <span class="ir">Ver grados ${ICONOS.flecha()}</span>
+      <a class="tarjeta-nivel" href="nivel.html?nivel=${nivel.id}">
+        <img class="tarjeta-nivel-img" src="${nivel.imagen}" alt="${nivel.nombre}">
+        <div class="tarjeta-nivel-contenido">
+          <span class="lema">${nivel.lema}</span>
+          <p>${nivel.descripcion}</p>
+          <span class="ir">Ver grados ${ICONOS.flecha()}</span>
+        </div>
       </a>
     `);
     cont.appendChild(tarjeta);
