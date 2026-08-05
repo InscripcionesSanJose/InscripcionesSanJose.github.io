@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscripción — Real Colegio San José</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="encabezado">
+  <div class="envoltura">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="Escudo Real Colegio San José">
+      <span class="marca-texto">
+        <strong>Real Colegio San José</strong>
+        <span>Registro de estudiantes</span>
+      </span>
+    </a>
+    <div class="migas"><a href="index.html">Inicio</a> / <a id="insc-miga" href="#"></a> / Inscripción</div>
+  </div>
+</header>
+
+<main>
+  <section class="form-envoltura envoltura">
+    <div class="form-cabecera">
+      <span class="pastilla">Formulario de inscripción</span>
+      <h1 id="insc-titulo"></h1>
+      <p>Completa los datos del estudiante y del acudiente. Más adelante te contactaremos para continuar con el proceso.</p>
+    </div>
+
+    <form class="tarjeta-form" id="form-inscripcion">
+      <input type="hidden" name="grado" id="insc-grado-oculto">
+
+      <fieldset class="grupo-form">
+        <legend>Datos del estudiante</legend>
+        <p class="subtexto">Información de quien va a cursar el grado.</p>
+        <div class="campos-grid">
+          <div class="campo campo-completo">
+            <label for="est-nombre">Nombre completo</label>
+            <input type="text" id="est-nombre" name="estudiante_nombre" required>
+          </div>
+          <div class="campo">
+            <label for="est-tipo-doc">Tipo de documento</label>
+            <select id="est-tipo-doc" name="estudiante_tipo_documento" required>
+              <option value="">Selecciona...</option>
+              <option value="Registro civil">Registro civil</option>
+              <option value="Tarjeta de identidad">Tarjeta de identidad</option>
+              <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+              <option value="PPT">Permiso por Protección Temporal (PPT)</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="est-documento">Número de documento</label>
+            <input type="text" id="est-documento" name="estudiante_documento" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="grupo-form">
+        <legend>Datos del padre, madre o acudiente</legend>
+        <p class="subtexto">Persona responsable del proceso de matrícula.</p>
+        <div class="campos-grid">
+          <div class="campo campo-completo">
+            <label for="acu-nombre">Nombre completo</label>
+            <input type="text" id="acu-nombre" name="acudiente_nombre" required>
+          </div>
+          <div class="campo">
+            <label for="acu-tipo-doc">Tipo de documento</label>
+            <select id="acu-tipo-doc" name="acudiente_tipo_documento" required>
+              <option value="">Selecciona...</option>
+              <option value="Cédula de ciudadanía">Cédula de ciudadanía</option>
+              <option value="Cédula de extranjería">Cédula de extranjería</option>
+              <option value="PPT">Permiso por Protección Temporal (PPT)</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div class="campo">
+            <label for="acu-documento">Número de documento</label>
+            <input type="text" id="acu-documento" name="acudiente_documento" required>
+          </div>
+          <div class="campo campo-completo">
+            <label for="acu-telefono">Número de teléfono</label>
+            <input type="tel" id="acu-telefono" name="acudiente_telefono" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <div id="mensaje-estado" class="mensaje-estado"></div>
+
+      <div class="acciones-form">
+        <button type="submit" class="boton boton-primario" id="boton-enviar">Enviar inscripción</button>
+        <span style="font-size:0.82rem; color:var(--texto-suave);">Tus datos solo se usan para el proceso de matrícula.</span>
+      </div>
+    </form>
+
+    <div class="pantalla-exito" id="pantalla-exito" style="display:none;">
+      <div style="display:flex; justify-content:center;" class="icono-exito"></div>
+      <h2>¡Inscripción enviada!</h2>
+      <p>Gracias por completar el formulario. El colegio se pondrá en contacto pronto para continuar con el proceso de matrícula.</p>
+      <a class="boton boton-fantasma" href="index.html" style="margin-top:16px;">Volver al inicio</a>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <p>Real Colegio San José — Popayán, Cauca</p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/iconos.js"></script>
+<script src="js/sheets-config.js"></script>
+<script src="js/main.js"></script>
+<script>initInscripcion();</script>
+</body>
+</html>

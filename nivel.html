@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grados — Real Colegio San José</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="encabezado">
+  <div class="envoltura">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="Escudo Real Colegio San José">
+      <span class="marca-texto">
+        <strong>Real Colegio San José</strong>
+        <span>Registro de estudiantes</span>
+      </span>
+    </a>
+    <div class="migas"><a href="index.html">Inicio</a> / <span id="nivel-titulo-miga"></span></div>
+  </div>
+</header>
+
+<main>
+  <section class="encabezado-nivel envoltura">
+    <span class="pastilla" id="nivel-pastilla"></span>
+    <h1 id="nivel-titulo"></h1>
+    <p id="nivel-descripcion"></p>
+  </section>
+
+  <section class="grados-seccion envoltura">
+    <div class="grados-grilla" id="grados-cont"></div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <p>Real Colegio San José — Popayán, Cauca</p>
+    <p><a href="index.html">← Volver al inicio</a></p>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/iconos.js"></script>
+<script src="js/main.js"></script>
+<script>
+  initNivel();
+  document.getElementById("nivel-titulo-miga").textContent = document.getElementById("nivel-titulo").textContent;
+</script>
+</body>
+</html>
