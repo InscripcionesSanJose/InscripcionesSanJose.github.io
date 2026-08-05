@@ -207,19 +207,42 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .camino-linea { stroke: var(--azul); stroke-width: 2; stroke-dasharray: 5 7; opacity: 0.45; fill: none; }
 
 /* ============================================================
-   INICIO — index.html
+   BANNER CONTENIDO + PANEL FLOTANTE
+   (compartido entre index.html y nivel.html)
    ============================================================ */
 
-.hero-banner {
-  width: 100%;
+.hero-inicio, .hero-nivel { padding: 22px 0 0; }
+
+.banner-cont {
+  border-radius: var(--radio);
+  overflow: hidden;
+  box-shadow: var(--sombra);
   line-height: 0;
 }
 
-.hero-banner img {
+.banner-cont img {
   width: 100%;
   height: auto;
   display: block;
 }
+
+.panel-inicio, .panel-grados {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-hover);
+  margin: -44px 0 0;
+  padding: 36px 32px 30px;
+  position: relative;
+  z-index: 5;
+}
+
+@media (max-width: 640px) {
+  .panel-inicio, .panel-grados { margin-top: -28px; padding: 26px 20px 20px; }
+}
+
+/* ============================================================
+   INICIO — index.html
+   ============================================================ */
 
 .bienvenida-corta {
   max-width: 620px;
@@ -231,10 +254,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--azul);
   font-size: clamp(1.7rem, 3.2vw, 2.3rem);
   margin-bottom: 12px;
-}
-
-.portada {
-  padding: 46px 0 40px;
 }
 
 .niveles {
@@ -330,40 +349,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    NIVEL — nivel.html (banner del nivel + grados en cuadritos)
    ============================================================ */
 
-.hero-nivel { padding: 22px 0 0; }
-
-.hero-nivel-img-cont {
-  border-radius: var(--radio);
-  overflow: hidden;
-  box-shadow: var(--sombra);
-  line-height: 0;
-}
-
-.hero-nivel-img-cont img {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.panel-grados {
-  background: var(--blanco);
-  border-radius: var(--radio);
-  box-shadow: var(--sombra-hover);
-  margin: -44px 0 0;
-  padding: 36px 32px 8px;
-  position: relative;
-  z-index: 5;
-}
-
-@media (max-width: 640px) {
-  .panel-grados { margin-top: -28px; padding: 26px 20px 4px; }
-}
-
 .panel-grados .pastilla { margin-bottom: 12px; }
 .panel-grados h2 { font-size: clamp(1.4rem, 2.6vw, 1.85rem); color: var(--azul); margin-bottom: 8px; }
 .panel-grados > p { max-width: 560px; margin-bottom: 26px; }
 
-.grados-seccion { padding: 0 0 70px; }
+.grados-seccion { padding: 0 0 40px; }
 
 .grados-grilla {
   display: grid;
