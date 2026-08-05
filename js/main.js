@@ -174,9 +174,7 @@ function initInscripcion() {
 
       if (resultado && resultado.resultado === "ok") {
         form.style.display = "none";
-        const exito = $("#pantalla-exito");
-        exito.querySelector(".icono-exito").innerHTML = ICONOS.check("#16305C");
-        exito.style.display = "block";
+        $("#pantalla-exito").style.display = "block";
       } else {
         throw new Error("Respuesta inesperada");
       }
