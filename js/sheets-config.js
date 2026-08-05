@@ -5,4 +5,4 @@
 // en tu Google Sheet. Instrucciones completas en LEEME.md.
 // ============================================================
 
-const SHEETS_WEB_APP_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+const SHEETS_WEB_APP_URL = "https://script.google.com/macros/s/AKfycbx6QCRH78d5LyeemFhMXyRqjVqoXaOVfTPe87mEAL_O7JfWH_vUdXTGwN_K-AM1lzt1/exec";
