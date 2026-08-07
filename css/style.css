@@ -551,8 +551,8 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 
 @media (max-width: 560px) { .campos-grid { grid-template-columns: 1fr; } }
 
-.campo { display: flex; flex-direction: column; gap: 6px; }
-.campo.completo { grid-column: 1 / -1; }
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo-completo { grid-column: 1 / -1; }
 
 .campo label {
   font-size: 0.82rem;
@@ -577,6 +577,11 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 }
 
 .campo-archivo input[type="file"] {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding: 9px 10px;
   font-size: 0.86rem;
   color: var(--texto-suave);
