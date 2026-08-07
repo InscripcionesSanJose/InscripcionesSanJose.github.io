@@ -175,7 +175,6 @@ function initInscripcion() {
   const grado = obtenerGrado(gradoId) || GRADOS[0];
   const nivel = obtenerNivel(grado.nivelId);
   const requiereConstancia = grado.nivelId !== "preescolar";
-
   $("#insc-miga").textContent = grado.nombre;
   $("#insc-miga").href = `grado.html?grado=${grado.id}`;
   $("#insc-titulo").textContent = `Inscripción — ${grado.nombre}`;
@@ -245,8 +244,10 @@ function initInscripcion() {
         );
         $("#boton-whatsapp").href = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWa}`;
         $("#pantalla-exito").style.display = "block";
+      } else if (resultado && resultado.resultado === "error") {
+        throw new Error(`Error del servidor: ${resultado.mensaje}`);
       } else {
-        throw new Error("Respuesta inesperada");
+        throw new Error("Respuesta inesperada del servidor.");
       }
     } catch (error) {
       mostrarEstado(error.message || "No se pudo enviar la inscripción. Verifica tu conexión e inténtalo de nuevo.", "error");
