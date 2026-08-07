@@ -90,11 +90,58 @@
         </div>
       </fieldset>
 
+      <fieldset class="grupo-form">
+        <legend>Documento de identidad</legend>
+        <p class="subtexto">Foto del registro civil o tarjeta de identidad del estudiante, por ambos lados.</p>
+        <div class="campos-grid">
+          <div class="campo campo-completo campo-archivo">
+            <label for="doc-frente">Foto — lado frontal</label>
+            <input type="file" id="doc-frente" name="archivo_documento_frente" accept="image/*" required>
+          </div>
+          <div class="campo campo-completo campo-archivo">
+            <label for="doc-reverso">Foto — lado posterior</label>
+            <input type="file" id="doc-reverso" name="archivo_documento_reverso" accept="image/*" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="grupo-form" id="grupo-constancia">
+        <legend>Constancia de comportamiento</legend>
+        <p class="subtexto">Expedida por el colegio de procedencia. Requerida de Primero a Once.</p>
+        <div class="campos-grid">
+          <div class="campo campo-completo campo-archivo">
+            <label for="doc-constancia">Foto de la constancia</label>
+            <input type="file" id="doc-constancia" name="archivo_constancia" accept="image/*">
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="grupo-form">
+        <legend>Pago de la inscripción</legend>
+        <div class="caja-pago">
+          <div class="caja-pago-dato">
+            <span>Valor de la inscripción</span>
+            <strong>$15.000</strong>
+          </div>
+          <div class="caja-pago-dato">
+            <span>Convenio Supergiros</span>
+            <strong>25755</strong>
+          </div>
+          <p class="caja-pago-nota">Consigna por Supergiros al convenio de arriba y sube la foto del comprobante. Cualquier duda, comunícate al 321 811 4521 o al 321 811 5834.</p>
+        </div>
+        <div class="campos-grid" style="margin-top:16px;">
+          <div class="campo campo-completo campo-archivo">
+            <label for="doc-comprobante">Foto del comprobante de pago</label>
+            <input type="file" id="doc-comprobante" name="archivo_comprobante" accept="image/*" required>
+          </div>
+        </div>
+      </fieldset>
+
       <div id="mensaje-estado" class="mensaje-estado"></div>
 
       <div class="acciones-form">
         <button type="submit" class="boton boton-primario" id="boton-enviar">Enviar inscripción</button>
-        <span style="font-size:0.82rem; color:var(--texto-suave);">Tus datos solo se usan para el proceso de matrícula.</span>
+        <span style="font-size:0.82rem; color:var(--texto-suave);">Tus datos y fotos solo se usan para el proceso de matrícula.</span>
       </div>
     </form>
 
@@ -102,7 +149,11 @@
       <img class="mascota-exito" src="assets/mascota.png" alt="Mascota del Real Colegio San José celebrando">
       <h2>¡Inscripción enviada!</h2>
       <p>Gracias por completar el formulario. El colegio se pondrá en contacto pronto para continuar con el proceso de matrícula.</p>
-      <a class="boton boton-fantasma" href="index.html" style="margin-top:16px;">Volver al inicio</a>
+      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px;">
+        <a class="boton boton-primario" id="boton-whatsapp" href="#" target="_blank" rel="noopener">Enviar comprobante por WhatsApp</a>
+        <a class="boton boton-fantasma" href="index.html">Volver al inicio</a>
+      </div>
+      <p class="subtexto" style="margin-top:14px;">Al abrir WhatsApp, adjunta la misma foto del comprobante que ya subiste aquí.</p>
     </div>
   </section>
 </main>

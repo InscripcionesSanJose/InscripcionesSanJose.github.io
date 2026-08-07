@@ -146,14 +146,48 @@ function initGrado() {
 
 // ---------- INSCRIPCIÓN (inscripcion.html) ----------
 
+const TAMANO_MAXIMO_ARCHIVO = 8 * 1024 * 1024; // 8 MB por foto
+const WHATSAPP_NUMERO = "573218114521"; // primer número de contacto, con indicativo de Colombia
+
+function archivoABase64(input) {
+  return new Promise((resolve, reject) => {
+    const archivo = input.files && input.files[0];
+    if (!archivo) { resolve(null); return; }
+
+    if (archivo.size > TAMANO_MAXIMO_ARCHIVO) {
+      reject(new Error(`La foto "${archivo.name}" pesa más de 8 MB. Usa una foto más liviana.`));
+      return;
+    }
+
+    const lector = new FileReader();
+    lector.onload = () => {
+      const resultado = lector.result; // "data:image/jpeg;base64,AAAA..."
+      const base64 = resultado.split(",")[1];
+      resolve({ nombre: archivo.name, tipo: archivo.type || "image/jpeg", datos: base64 });
+    };
+    lector.onerror = () => reject(new Error(`No se pudo leer la foto "${archivo.name}".`));
+    lector.readAsDataURL(archivo);
+  });
+}
+
 function initInscripcion() {
   const gradoId = obtenerParametro("grado");
   const grado = obtenerGrado(gradoId) || GRADOS[0];
+  const nivel = obtenerNivel(grado.nivelId);
+  const requiereConstancia = grado.nivelId !== "preescolar";
 
   $("#insc-miga").textContent = grado.nombre;
   $("#insc-miga").href = `grado.html?grado=${grado.id}`;
   $("#insc-titulo").textContent = `Inscripción — ${grado.nombre}`;
   $("#insc-grado-oculto").value = grado.nombre;
+
+  const grupoConstancia = $("#grupo-constancia");
+  const campoConstancia = $("#doc-constancia");
+  if (!requiereConstancia) {
+    grupoConstancia.style.display = "none";
+  } else {
+    campoConstancia.required = true;
+  }
 
   const form = $("#form-inscripcion");
   const estado = $("#mensaje-estado");
@@ -168,22 +202,54 @@ function initInscripcion() {
     }
 
     botonEnviar.disabled = true;
-    botonEnviar.textContent = "Enviando...";
-
-    const datos = new URLSearchParams(new FormData(form));
+    botonEnviar.textContent = "Subiendo fotos...";
+    ocultarEstado();
 
     try {
-      const respuesta = await fetch(SHEETS_WEB_APP_URL, { method: "POST", body: datos });
+      const [documentoFrente, documentoReverso, constancia, comprobante] = await Promise.all([
+        archivoABase64($("#doc-frente")),
+        archivoABase64($("#doc-reverso")),
+        archivoABase64(campoConstancia),
+        archivoABase64($("#doc-comprobante"))
+      ]);
+
+      const datosFormulario = new FormData(form);
+      const carga = {
+        grado: datosFormulario.get("grado"),
+        estudiante_nombre: datosFormulario.get("estudiante_nombre"),
+        estudiante_tipo_documento: datosFormulario.get("estudiante_tipo_documento"),
+        estudiante_documento: datosFormulario.get("estudiante_documento"),
+        acudiente_nombre: datosFormulario.get("acudiente_nombre"),
+        acudiente_tipo_documento: datosFormulario.get("acudiente_tipo_documento"),
+        acudiente_documento: datosFormulario.get("acudiente_documento"),
+        acudiente_telefono: datosFormulario.get("acudiente_telefono"),
+        archivo_documento_frente: documentoFrente,
+        archivo_documento_reverso: documentoReverso,
+        archivo_constancia: constancia,
+        archivo_comprobante: comprobante
+      };
+
+      botonEnviar.textContent = "Enviando...";
+
+      const respuesta = await fetch(SHEETS_WEB_APP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(carga)
+      });
       const resultado = await respuesta.json();
 
       if (resultado && resultado.resultado === "ok") {
         form.style.display = "none";
+        const mensajeWa = encodeURIComponent(
+          `Hola, envío el comprobante de pago de la inscripción de ${carga.estudiante_nombre} — grado ${grado.nombre}.`
+        );
+        $("#boton-whatsapp").href = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWa}`;
         $("#pantalla-exito").style.display = "block";
       } else {
         throw new Error("Respuesta inesperada");
       }
     } catch (error) {
-      mostrarEstado("No se pudo enviar la inscripción. Verifica tu conexión e inténtalo de nuevo.", "error");
+      mostrarEstado(error.message || "No se pudo enviar la inscripción. Verifica tu conexión e inténtalo de nuevo.", "error");
       botonEnviar.disabled = false;
       botonEnviar.textContent = "Enviar inscripción";
     }
@@ -192,5 +258,9 @@ function initInscripcion() {
   function mostrarEstado(texto, tipo) {
     estado.textContent = texto;
     estado.className = `mensaje-estado visible ${tipo}`;
+  }
+
+  function ocultarEstado() {
+    estado.className = "mensaje-estado";
   }
 }

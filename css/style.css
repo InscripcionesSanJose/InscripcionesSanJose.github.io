@@ -576,6 +576,51 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
   background: var(--blanco);
 }
 
+.campo-archivo input[type="file"] {
+  padding: 9px 10px;
+  font-size: 0.86rem;
+  color: var(--texto-suave);
+}
+
+.campo-archivo input[type="file"]::file-selector-button {
+  font-family: var(--fuente-texto);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--blanco);
+  background: var(--azul);
+  border: none;
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.campo-archivo input[type="file"]::file-selector-button:hover { background: var(--azul-medio); }
+
+.caja-pago {
+  background: var(--amarillo-tinte);
+  border: 1px solid rgba(244, 180, 0, 0.35);
+  border-radius: var(--radio-chico);
+  padding: 16px 18px;
+}
+
+.caja-pago-dato {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 0.92rem;
+}
+
+.caja-pago-dato span { color: var(--texto-suave); }
+.caja-pago-dato strong { color: var(--azul); font-size: 1.05rem; }
+
+.caja-pago-nota {
+  font-size: 0.82rem;
+  color: var(--texto-suave);
+  margin: 8px 0 0;
+}
+
 .acciones-form {
   display: flex;
   align-items: center;
