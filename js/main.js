@@ -22,13 +22,9 @@ function initInicio() {
   NIVELES.forEach((nivel) => {
     const tarjeta = crearElemento(`
       <a class="tarjeta-nivel" href="nivel.html?nivel=${nivel.id}">
-        <div class="tarjeta-nivel-insignia">
-          <img src="${nivel.imagen}" alt="Insignia de ${nivel.nombre}">
-        </div>
-        <div class="tarjeta-nivel-contenido">
-          <span class="lema">${nivel.lema}</span>
-          <p>${nivel.descripcion}</p>
-          <span class="ir">Ver grados ${ICONOS.flecha()}</span>
+        <img class="tarjeta-nivel-imagen" src="${nivel.imagen}" alt="${nivel.nombre} — ${nivel.lema}">
+        <div class="tarjeta-nivel-pie">
+          <span class="ir">Ver grados de ${nivel.nombre} ${ICONOS.flecha()}</span>
         </div>
       </a>
     `);
@@ -175,7 +171,6 @@ function initInscripcion() {
   const grado = obtenerGrado(gradoId) || GRADOS[0];
   const nivel = obtenerNivel(grado.nivelId);
   const requiereConstancia = grado.nivelId !== "preescolar";
-
   $("#insc-miga").textContent = grado.nombre;
   $("#insc-miga").href = `grado.html?grado=${grado.id}`;
   $("#insc-titulo").textContent = `Inscripción — ${grado.nombre}`;
@@ -231,23 +226,21 @@ function initInscripcion() {
 
       botonEnviar.textContent = "Enviando...";
 
-      const respuesta = await fetch(SHEETS_WEB_APP_URL, {
+      await fetch(SHEETS_WEB_APP_URL, {
         method: "POST",
+        mode: "no-cors",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify(carga)
       });
-      const resultado = await respuesta.json();
 
-      if (resultado && resultado.resultado === "ok") {
-        form.style.display = "none";
-        const mensajeWa = encodeURIComponent(
-          `Hola, envío el comprobante de pago de la inscripción de ${carga.estudiante_nombre} — grado ${grado.nombre}.`
-        );
-        $("#boton-whatsapp").href = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWa}`;
-        $("#pantalla-exito").style.display = "block";
-      } else {
-        throw new Error("Respuesta inesperada");
-      }
+      // En modo "no-cors" el navegador no deja leer la respuesta de Google,
+      // así que si el envío no lanzó un error de red, lo damos por enviado.
+      form.style.display = "none";
+      const mensajeWa = encodeURIComponent(
+        `Hola, envío el comprobante de pago de la inscripción de ${carga.estudiante_nombre} — grado ${grado.nombre}.`
+      );
+      $("#boton-whatsapp").href = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWa}`;
+      $("#pantalla-exito").style.display = "block";
     } catch (error) {
       mostrarEstado(error.message || "No se pudo enviar la inscripción. Verifica tu conexión e inténtalo de nuevo.", "error");
       botonEnviar.disabled = false;

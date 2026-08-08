@@ -279,57 +279,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .tarjeta-nivel:hover { transform: translateY(-4px); box-shadow: var(--sombra-hover); }
 
-.tarjeta-nivel .tarjeta-nivel-insignia {
-  background: linear-gradient(165deg, var(--azul-tinte) 0%, var(--blanco) 75%);
-  padding: 34px 22px 20px;
+.tarjeta-nivel .tarjeta-nivel-imagen {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.tarjeta-nivel-pie {
+  padding: 16px 22px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--borde);
 }
 
-.tarjeta-nivel .tarjeta-nivel-insignia img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  filter: drop-shadow(0 12px 18px rgba(22, 48, 92, 0.20));
-  transition: transform 0.2s ease;
-}
-
-.tarjeta-nivel:hover .tarjeta-nivel-insignia img { transform: scale(1.03); }
-
-.tarjeta-nivel-contenido {
-  padding: 20px 22px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  flex: 1;
-}
-
-.tarjeta-nivel-contenido .lema {
-  font-family: var(--fuente-mono);
-  font-size: 0.72rem;
-  color: var(--texto-suave);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.tarjeta-nivel-contenido p {
-  font-size: 0.92rem;
-  margin: 0;
-}
-
-.tarjeta-nivel-contenido .ir {
-  margin-top: auto;
-  padding-top: 8px;
+.tarjeta-nivel-pie .ir {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   color: var(--azul-medio);
 }
-.tarjeta-nivel-contenido .ir svg { transition: transform 0.15s ease; }
-.tarjeta-nivel:hover .ir svg { transform: translateX(4px); }
+.tarjeta-nivel-pie .ir svg { transition: transform 0.15s ease; }
+.tarjeta-nivel:hover .tarjeta-nivel-pie .ir svg { transform: translateX(4px); }
 
 .franja-camino {
   margin-top: 56px;
@@ -551,8 +524,8 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 
 @media (max-width: 560px) { .campos-grid { grid-template-columns: 1fr; } }
 
-.campo { display: flex; flex-direction: column; gap: 6px; }
-.campo.completo { grid-column: 1 / -1; }
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo-completo { grid-column: 1 / -1; }
 
 .campo label {
   font-size: 0.82rem;
@@ -577,6 +550,11 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 }
 
 .campo-archivo input[type="file"] {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   padding: 9px 10px;
   font-size: 0.86rem;
   color: var(--texto-suave);
