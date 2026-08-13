@@ -143,8 +143,8 @@ function initGrado() {
 // ---------- INSCRIPCIÓN (inscripcion.html) ----------
 
 const TAMANO_MAXIMO_ARCHIVO = 8 * 1024 * 1024; // 8 MB por foto (límite de seguridad, tras comprimir casi nunca se llega aquí)
-const LADO_MAXIMO_FOTO = 1600; // px — más que suficiente para leer un documento en pantalla
-const CALIDAD_COMPRESION = 0.75;
+const LADO_MAXIMO_FOTO = 2000; // px — conserva el texto y números legibles en documentos, aun impresos
+const CALIDAD_COMPRESION = 0.85;
 const WHATSAPP_NUMERO = "573218114521"; // primer número de contacto, con indicativo de Colombia
 
 // Redibuja la foto en un lienzo más chico y la exporta como JPEG liviano.
