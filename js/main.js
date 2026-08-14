@@ -20,9 +20,15 @@ function crearElemento(html) {
 function initInicio() {
   const cont = $("#niveles-cont");
   NIVELES.forEach((nivel) => {
+    const visual = nivel.imagen
+      ? `<img class="tarjeta-nivel-imagen" src="${nivel.imagen}" alt="${nivel.nombre} — ${nivel.lema}">`
+      : `<div class="tarjeta-nivel-imagen tarjeta-nivel-imagen-marcador">
+           <span>${nivel.nombre}</span>
+           <span class="lema">${nivel.lema}</span>
+         </div>`;
     const tarjeta = crearElemento(`
       <a class="tarjeta-nivel" href="nivel.html?nivel=${nivel.id}">
-        <img class="tarjeta-nivel-imagen" src="${nivel.imagen}" alt="${nivel.nombre} — ${nivel.lema}">
+        ${visual}
         <div class="tarjeta-nivel-pie">
           <span class="ir">Ver grados de ${nivel.nombre} ${ICONOS.flecha()}</span>
         </div>
@@ -69,8 +75,19 @@ function initNivel() {
   const nivel = obtenerNivel(nivelId) || NIVELES[0];
   const grados = gradosPorNivel(nivel.id);
 
-  $("#nivel-banner-img").src = nivel.banner;
-  $("#nivel-banner-img").alt = `Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José`;
+  const bannerImg = $("#nivel-banner-img");
+  if (nivel.banner) {
+    bannerImg.src = nivel.banner;
+    bannerImg.alt = `Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José`;
+  } else {
+    const marcador = crearElemento(`
+      <div class="hero-nivel-marcador">
+        <span>${nivel.nombre}</span>
+        <span class="lema">${nivel.lema}</span>
+      </div>
+    `);
+    bannerImg.replaceWith(marcador);
+  }
 
   $("#nivel-pastilla").textContent = nivel.nombre;
   if (nivel.color === "amarillo") $("#nivel-pastilla").classList.add("amarilla");
@@ -91,6 +108,27 @@ function initNivel() {
     `);
     cont.appendChild(tarjeta);
   });
+
+  if (nivel.id === "bachillerato-tecnico") {
+    const panel = $(".panel-grados");
+    const seccionEnfasis = crearElemento(`
+      <div class="seccion-enfasis">
+        <h3>Énfasis que ofrece el Bachillerato Técnico</h3>
+        <p class="subtexto">En Décimo y Once, cada estudiante elige uno de estos seis énfasis técnicos.</p>
+        <div class="enfasis-grilla"></div>
+      </div>
+    `);
+    const grillaEnfasis = seccionEnfasis.querySelector(".enfasis-grilla");
+    ENFASIS_TECNICOS.forEach((enfasis) => {
+      grillaEnfasis.appendChild(crearElemento(`
+        <div class="tarjeta-enfasis">
+          <h4>${enfasis.nombre}</h4>
+          <p>${enfasis.descripcion}</p>
+        </div>
+      `));
+    });
+    panel.appendChild(seccionEnfasis);
+  }
 }
 
 // ---------- GRADO (grado.html) ----------
@@ -142,27 +180,76 @@ function initGrado() {
 
 // ---------- INSCRIPCIÓN (inscripcion.html) ----------
 
-const TAMANO_MAXIMO_ARCHIVO = 8 * 1024 * 1024; // 8 MB por foto
+const TAMANO_MAXIMO_ARCHIVO = 8 * 1024 * 1024; // 8 MB por foto (límite de seguridad, tras comprimir casi nunca se llega aquí)
+const LADO_MAXIMO_FOTO = 2000; // px — conserva el texto y números legibles en documentos, aun impresos
+const CALIDAD_COMPRESION = 0.85;
 const WHATSAPP_NUMERO = "573218114521"; // primer número de contacto, con indicativo de Colombia
 
-function archivoABase64(input) {
+// Redibuja la foto en un lienzo más chico y la exporta como JPEG liviano.
+// Así lo que llega a Drive pesa mucho menos que la foto original del celular.
+function comprimirImagen(archivo, ladoMaximo = LADO_MAXIMO_FOTO, calidad = CALIDAD_COMPRESION) {
   return new Promise((resolve, reject) => {
-    const archivo = input.files && input.files[0];
-    if (!archivo) { resolve(null); return; }
-
-    if (archivo.size > TAMANO_MAXIMO_ARCHIVO) {
-      reject(new Error(`La foto "${archivo.name}" pesa más de 8 MB. Usa una foto más liviana.`));
-      return;
-    }
-
     const lector = new FileReader();
     lector.onload = () => {
-      const resultado = lector.result; // "data:image/jpeg;base64,AAAA..."
-      const base64 = resultado.split(",")[1];
-      resolve({ nombre: archivo.name, tipo: archivo.type || "image/jpeg", datos: base64 });
+      const imagen = new Image();
+      imagen.onload = () => {
+        let { width, height } = imagen;
+        if (width > ladoMaximo || height > ladoMaximo) {
+          if (width > height) {
+            height = Math.round(height * (ladoMaximo / width));
+            width = ladoMaximo;
+          } else {
+            width = Math.round(width * (ladoMaximo / height));
+            height = ladoMaximo;
+          }
+        }
+        const lienzo = document.createElement("canvas");
+        lienzo.width = width;
+        lienzo.height = height;
+        lienzo.getContext("2d").drawImage(imagen, 0, 0, width, height);
+        lienzo.toBlob(
+          (blob) => blob ? resolve(blob) : reject(new Error("No se pudo comprimir la imagen.")),
+          "image/jpeg",
+          calidad
+        );
+      };
+      imagen.onerror = () => reject(new Error("No se pudo procesar la imagen para comprimirla."));
+      imagen.src = lector.result;
+    };
+    lector.onerror = () => reject(new Error("No se pudo leer el archivo."));
+    lector.readAsDataURL(archivo);
+  });
+}
+
+async function archivoABase64(input) {
+  const archivo = input.files && input.files[0];
+  if (!archivo) return null;
+
+  let blobFinal = archivo;
+  if (archivo.type && archivo.type.startsWith("image/") && archivo.type !== "image/gif") {
+    try {
+      blobFinal = await comprimirImagen(archivo);
+    } catch (error) {
+      blobFinal = archivo; // si la compresión falla por algo, se sube la foto tal cual
+    }
+  }
+
+  if (blobFinal.size > TAMANO_MAXIMO_ARCHIVO) {
+    throw new Error(`La foto "${archivo.name}" sigue pesando mucho. Usa una foto más liviana.`);
+  }
+
+  return new Promise((resolve, reject) => {
+    const lector = new FileReader();
+    lector.onload = () => {
+      const base64 = lector.result.split(",")[1];
+      resolve({
+        nombre: archivo.name.replace(/\.[^.]+$/, "") + ".jpg",
+        tipo: "image/jpeg",
+        datos: base64
+      });
     };
     lector.onerror = () => reject(new Error(`No se pudo leer la foto "${archivo.name}".`));
-    lector.readAsDataURL(archivo);
+    lector.readAsDataURL(blobFinal);
   });
 }
 
@@ -197,7 +284,7 @@ function initInscripcion() {
     }
 
     botonEnviar.disabled = true;
-    botonEnviar.textContent = "Subiendo fotos...";
+    botonEnviar.textContent = "Optimizando fotos...";
     ocultarEstado();
 
     try {

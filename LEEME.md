@@ -7,13 +7,39 @@ automáticamente en Google Sheets + Google Drive, organizada por grado.
 
 ## 1. Estructura del sitio
 
-- `index.html` — Inicio: Preescolar / Primaria / Secundaria.
-- `nivel.html?nivel=primaria` — Grilla de grados de ese nivel.
+- `index.html` — Inicio: Preescolar / Primaria / Bachillerato / Bachillerato Técnico.
+- `nivel.html?nivel=primaria` — Grilla de grados de ese nivel (y, solo para
+  `bachillerato-tecnico`, los 6 énfasis que ofrece).
 - `grado.html?grado=quinto` — Fotos, descripción y botón "Inscribirme".
 - `inscripcion.html?grado=quinto` — Formulario + documentos, guarda en Sheets/Drive.
+- `conocenos.html` — Página institucional nueva: presentación, datos del
+  colegio, logro deportivo, galería de fotos (todavía con marcadores de
+  posición) y los 4 proyectos transversales.
 - `js/data.js` — **Aquí editas** nombres, edades y descripciones de cada
-  grado, y aquí agregas las fotos reales cuando las tengas.
+  grado y nivel, y aquí agregas las fotos reales cuando las tengas.
 - `js/sheets-config.js` — Aquí va el enlace de tu Google Apps Script.
+
+### Pendiente de tu lado en `conocenos.html` y `data.js`
+
+- **Imágenes de "Bachillerato"**: por ahora sigue usando las mismas
+  imágenes que tenías para "Secundaria" (`assets/banner-secundaria.png` y
+  `assets/nivel-secundaria.png`), pero ese diseño dice **"de Sexto a
+  Once"**, que ya no es exacto — ahora Bachillerato es Sexto a Noveno.
+  Cuando tengas las imágenes nuevas, reemplaza esos dos archivos (mismo
+  nombre) o avísame y ajusto `js/data.js` si les cambias el nombre.
+- **Imágenes de "Bachillerato Técnico"**: no tiene imágenes propias
+  todavía — el sitio muestra un bloque de color con el nombre mientras
+  tanto. En `js/data.js`, dentro de `NIVELES`, busca `bachillerato-tecnico`
+  y reemplaza `imagen: null` y `banner: null` con las rutas cuando las
+  tengas.
+- **Fotos de `conocenos.html`**: la foto de la institución del inicio, las
+  12 fotos de "Conoce el colegio", el banner del logro de vóleibol, y las
+  2 fotos de cada uno de los 4 proyectos transversales — todo está con
+  marcadores de posición ("— próximamente"). Cuando tengas las fotos, dime
+  cuál va en cada espacio y las pongo.
+- Los textos de "Conócenos" y de los proyectos transversales (La Granja,
+  Educación Emocional, Psicología, Robótica) los escribí yo con la
+  información que me diste — revísalos y ajusta lo que no te cuadre.
 
 ## 2. Qué pide el formulario ahora
 
@@ -22,7 +48,9 @@ automáticamente en Google Sheets + Google Drive, organizada por grado.
 - Foto de la constancia de comportamiento — **solo aparece de Primero a
   Once** (Transición no la pide, según los requisitos que diste).
 - Foto del comprobante de pago de la inscripción ($15.000, convenio
-  Supergiros 25755).
+  Supergiros 25755) — **este campo es opcional**. Si no se sube, la
+  columna "Comprobante de pago" de esa fila queda en rojo con el texto
+  "Pendiente de pago", para que sea fácil detectar a quién le falta pagar.
 - Al enviar, se le ofrece al acudiente un botón para abrir WhatsApp con el
   primer número de contacto y un mensaje ya escrito, para que adjunte la
   foto del comprobante manualmente (ver sección 5, por qué no es 100% automático).
@@ -54,47 +82,78 @@ sino un link que abre la foto guardada en Drive).
 
 ```javascript
 function doPost(e) {
-  var datos = JSON.parse(e.postData.contents);
-  var libro = SpreadsheetApp.getActiveSpreadsheet();
-  var grado = datos.grado;
-  var hoja = libro.getSheetByName(grado);
+  try {
+    var datos = JSON.parse(e.postData.contents);
+    var libro = SpreadsheetApp.getActiveSpreadsheet();
+    var grado = datos.grado;
+    var hoja = libro.getSheetByName(grado);
 
-  var encabezados = ["Fecha", "Estudiante - Nombre", "Estudiante - Tipo de documento",
-    "Estudiante - Documento", "Acudiente - Nombre", "Acudiente - Tipo de documento",
-    "Acudiente - Documento", "Acudiente - Teléfono", "Documento - Frente",
-    "Documento - Reverso", "Constancia de comportamiento", "Comprobante de pago"];
+    var encabezados = ["Fecha", "Estudiante - Nombre", "Estudiante - Tipo de documento",
+      "Estudiante - Documento", "Acudiente - Nombre", "Acudiente - Tipo de documento",
+      "Acudiente - Documento", "Acudiente - Teléfono", "Documento - Frente",
+      "Documento - Reverso", "Constancia de comportamiento", "Comprobante de pago"];
 
-  if (!hoja) {
-    hoja = libro.insertSheet(grado);
-    hoja.appendRow(encabezados);
+    if (!hoja) {
+      hoja = libro.insertSheet(grado);
+      hoja.appendRow(encabezados);
+    }
+
+    var carpeta = obtenerCarpetaInscripciones();
+    var prefijoArchivo = grado + " - " + (datos.estudiante_nombre || "sin nombre");
+
+    var urlFrente = guardarArchivo(carpeta, datos.archivo_documento_frente, prefijoArchivo + " - documento frente");
+    var urlReverso = guardarArchivo(carpeta, datos.archivo_documento_reverso, prefijoArchivo + " - documento reverso");
+    var urlConstancia = guardarArchivo(carpeta, datos.archivo_constancia, prefijoArchivo + " - constancia");
+    var urlComprobante = guardarArchivo(carpeta, datos.archivo_comprobante, prefijoArchivo + " - comprobante de pago");
+    var textoComprobante = urlComprobante ? urlComprobante : "Pendiente de pago";
+
+    hoja.appendRow([
+      new Date(),
+      datos.estudiante_nombre,
+      datos.estudiante_tipo_documento,
+      datos.estudiante_documento,
+      datos.acudiente_nombre,
+      datos.acudiente_tipo_documento,
+      datos.acudiente_documento,
+      datos.acudiente_telefono,
+      urlFrente,
+      urlReverso,
+      urlConstancia,
+      textoComprobante
+    ]);
+
+    if (!urlComprobante) {
+      var filaNueva = hoja.getLastRow();
+      hoja.getRange(filaNueva, 12)
+        .setBackground("#F4C7C3")
+        .setFontColor("#990000")
+        .setFontWeight("bold");
+    }
+
+    return ContentService
+      .createTextOutput(JSON.stringify({ resultado: "ok" }))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    registrarError(error);
+    return ContentService
+      .createTextOutput(JSON.stringify({ resultado: "error", mensaje: error.message }))
+      .setMimeType(ContentService.MimeType.JSON);
   }
+}
 
-  var carpeta = obtenerCarpetaInscripciones();
-  var prefijoArchivo = grado + " - " + (datos.estudiante_nombre || "sin nombre");
-
-  var urlFrente = guardarArchivo(carpeta, datos.archivo_documento_frente, prefijoArchivo + " - documento frente");
-  var urlReverso = guardarArchivo(carpeta, datos.archivo_documento_reverso, prefijoArchivo + " - documento reverso");
-  var urlConstancia = guardarArchivo(carpeta, datos.archivo_constancia, prefijoArchivo + " - constancia");
-  var urlComprobante = guardarArchivo(carpeta, datos.archivo_comprobante, prefijoArchivo + " - comprobante de pago");
-
-  hoja.appendRow([
-    new Date(),
-    datos.estudiante_nombre,
-    datos.estudiante_tipo_documento,
-    datos.estudiante_documento,
-    datos.acudiente_nombre,
-    datos.acudiente_tipo_documento,
-    datos.acudiente_documento,
-    datos.acudiente_telefono,
-    urlFrente,
-    urlReverso,
-    urlConstancia,
-    urlComprobante
-  ]);
-
-  return ContentService
-    .createTextOutput(JSON.stringify({ resultado: "ok" }))
-    .setMimeType(ContentService.MimeType.JSON);
+function registrarError(error) {
+  try {
+    var libro = SpreadsheetApp.getActiveSpreadsheet();
+    var hoja = libro.getSheetByName("Errores_Debug");
+    if (!hoja) {
+      hoja = libro.insertSheet("Errores_Debug");
+      hoja.appendRow(["Fecha", "Mensaje de error", "Detalle"]);
+    }
+    hoja.appendRow([new Date(), error.message, error.stack || ""]);
+  } catch (errorSecundario) {
+    // si ni esto funciona, no hacemos nada más — no queremos que falle doblemente
+  }
 }
 
 function obtenerCarpetaInscripciones() {
@@ -113,6 +172,11 @@ function guardarArchivo(carpeta, archivo, nombreBase) {
   return creado.getUrl();
 }
 ```
+
+Si algo falla, ahora va a aparecer automáticamente una pestaña nueva llamada
+**"Errores_Debug"** en tu Google Sheet, con el mensaje exacto del error. Esa
+es la forma más fácil de ver qué está pasando, sin depender del panel de
+"Ejecuciones" de Apps Script.
 
 3. Guarda (Ctrl+S).
 4. Como este código ahora también usa Google Drive (antes solo usaba

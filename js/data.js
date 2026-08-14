@@ -24,13 +24,28 @@ const NIVELES = [
     banner: "assets/banner-primaria.png"
   },
   {
-    id: "secundaria",
-    nombre: "Secundaria",
-    lema: "Rumbo a la universidad",
-    descripcion: "De Sexto a Once, formación integral y preparación para la vida después del colegio.",
+    id: "bachillerato",
+    nombre: "Bachillerato",
+    lema: "Formación con propósito",
+    descripcion: "De Sexto a Noveno, formación integral y preparación para la etapa vocacional.",
     color: "azulOscuro",
+    // OJO: estas imágenes son las que tenías para "Secundaria de Sexto a Once" —
+    // el texto de la imagen (banner-secundaria.png / nivel-secundaria.png) ya no
+    // coincide del todo (dice "de Sexto a Once"). Sirven de placeholder mientras
+    // encargas unas nuevas que digan "Bachillerato, de Sexto a Noveno".
     imagen: "assets/nivel-secundaria.png",
     banner: "assets/banner-secundaria.png"
+  },
+  {
+    id: "bachillerato-tecnico",
+    nombre: "Bachillerato Técnico",
+    lema: "Media vocacional",
+    descripcion: "De Décimo a Once, con énfasis técnico: Enfermería, Servicios Farmacéuticos, Sistemas, Trabajo Social, Educación a la Primera Infancia y Seguridad y Salud en el Trabajo.",
+    color: "azul",
+    // Sin imagen propia todavía — el sitio usa un bloque de color con el
+    // nombre en texto mientras encargas las imágenes de este nivel nuevo.
+    imagen: null,
+    banner: null
   }
 ];
 
@@ -95,16 +110,16 @@ const GRADOS = [
   {
     id: "sexto",
     nombre: "Sexto",
-    nivelId: "secundaria",
+    nivelId: "bachillerato",
     edad: "11 a 12 años",
-    descripcionCorta: "La bienvenida a la secundaria.",
-    descripcion: "Sexto marca el ingreso a la secundaria: nuevas asignaturas, nuevos docentes y mayor independencia. El salón está adaptado para el trabajo por áreas y proyectos interdisciplinarios.",
+    descripcionCorta: "La bienvenida al bachillerato.",
+    descripcion: "Sexto marca el ingreso al bachillerato: nuevas asignaturas, nuevos docentes y mayor independencia. El salón está adaptado para el trabajo por áreas y proyectos interdisciplinarios.",
     fotos: [null, null]
   },
   {
     id: "septimo",
     nombre: "Séptimo",
-    nivelId: "secundaria",
+    nivelId: "bachillerato",
     edad: "12 a 13 años",
     descripcionCorta: "Profundizando en cada asignatura.",
     descripcion: "En Séptimo se profundiza el contenido de cada área y se fortalecen las habilidades de investigación y análisis, con espacios para el trabajo práctico y en grupo.",
@@ -113,7 +128,7 @@ const GRADOS = [
   {
     id: "octavo",
     nombre: "Octavo",
-    nivelId: "secundaria",
+    nivelId: "bachillerato",
     edad: "13 a 14 años",
     descripcionCorta: "Pensamiento crítico y proyectos propios.",
     descripcion: "Octavo impulsa el pensamiento crítico y la argumentación, con proyectos que integran varias asignaturas y un acompañamiento cercano en la etapa de adolescencia.",
@@ -122,30 +137,40 @@ const GRADOS = [
   {
     id: "noveno",
     nombre: "Noveno",
-    nivelId: "secundaria",
+    nivelId: "bachillerato",
     edad: "14 a 15 años",
-    descripcionCorta: "Orientación vocacional y mayor exigencia académica.",
-    descripcion: "En Noveno inicia el proceso de orientación vocacional, junto con una exigencia académica mayor que prepara el camino hacia la media técnica.",
+    descripcionCorta: "Orientación vocacional y cierre del bachillerato.",
+    descripcion: "En Noveno inicia el proceso de orientación vocacional, cerrando el bachillerato y preparando al estudiante para elegir su énfasis dentro del Bachillerato Técnico.",
     fotos: [null, null]
   },
   {
     id: "decimo",
     nombre: "Décimo",
-    nivelId: "secundaria",
+    nivelId: "bachillerato-tecnico",
     edad: "15 a 16 años",
     descripcionCorta: "Media técnica y proyecto de vida.",
-    descripcion: "Décimo profundiza en el proyecto de vida de cada estudiante, con énfasis en la media técnica y en las competencias necesarias para la educación superior.",
+    descripcion: "Décimo profundiza en el proyecto de vida de cada estudiante, con énfasis técnico en áreas como Enfermería, Sistemas, Trabajo Social, Educación a la Primera Infancia, Servicios Farmacéuticos o Seguridad y Salud en el Trabajo.",
     fotos: [null, null]
   },
   {
     id: "once",
     nombre: "Once",
-    nivelId: "secundaria",
+    nivelId: "bachillerato-tecnico",
     edad: "16 a 17 años",
     descripcionCorta: "El último año, rumbo a la universidad.",
-    descripcion: "Once es el cierre del colegio: preparación para las pruebas Saber 11, acompañamiento en la elección de carrera y los últimos proyectos antes de dar el salto a la universidad.",
+    descripcion: "Once es el cierre del colegio: preparación para las pruebas Saber 11, culminación del énfasis técnico elegido, y acompañamiento en la elección de carrera antes de dar el salto a la educación superior.",
     fotos: [null, null]
   }
+];
+
+// Los 6 énfasis del Bachillerato Técnico (Décimo y Once).
+const ENFASIS_TECNICOS = [
+  { nombre: "Enfermería", descripcion: "Formación técnica en cuidado básico de la salud." },
+  { nombre: "Servicios Farmacéuticos", descripcion: "Manejo y dispensación de medicamentos." },
+  { nombre: "Sistemas", descripcion: "Fundamentos de programación y soporte informático." },
+  { nombre: "Trabajo Social", descripcion: "Acompañamiento y desarrollo comunitario." },
+  { nombre: "Educación a la Primera Infancia", descripcion: "Pedagogía orientada a los primeros años de vida." },
+  { nombre: "Seguridad y Salud en el Trabajo", descripcion: "Prevención de riesgos en entornos laborales." }
 ];
 
 function obtenerNivel(id) {
