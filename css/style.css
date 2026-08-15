@@ -231,6 +231,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    ============================================================ */
 
 .hero-inicio, .hero-nivel { padding: 22px 0 0; }
+.hero-conoce + .hero-inicio { margin-top: 22px; }
 
 .banner-cont {
   border-radius: var(--radio);
@@ -834,6 +835,7 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 }
 
 .seccion-conocenos { padding: 60px 0; }
+.seccion-conocenos-primera { padding-top: 40px; }
 
 .conocenos-header { max-width: 640px; margin-bottom: 34px; }
 .conocenos-header h2 { font-size: clamp(1.6rem, 3.2vw, 2.2rem); color: var(--azul); margin: 12px 0 14px; }
