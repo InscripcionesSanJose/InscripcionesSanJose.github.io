@@ -1143,7 +1143,10 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 /* Cuando el lápiz queda pegado directo al contenedor de una foto que
    recorta sus bordes (overflow: hidden), se mete un poco hacia
    adentro para que no quede cortado. */
-.hero-conoce-foto > .boton-lapiz {
+.hero-conoce-foto > .boton-lapiz,
+.tarjeta-nivel-imagen-cont > .boton-lapiz,
+.banner-cont > .boton-lapiz,
+.tarjeta-grado > .boton-lapiz {
   top: 10px;
   right: 10px;
 }
