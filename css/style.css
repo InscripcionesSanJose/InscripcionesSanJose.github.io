@@ -238,6 +238,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   overflow: hidden;
   box-shadow: var(--sombra);
   line-height: 0;
+  position: relative;
 }
 
 .banner-cont img {
@@ -299,10 +300,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .tarjeta-nivel:hover { transform: translateY(-4px); box-shadow: var(--sombra-hover); }
 
-.tarjeta-nivel .tarjeta-nivel-imagen {
-  width: 100%;
-  height: auto;
-  display: block;
+.tarjeta-nivel .tarjeta-nivel-imagen-cont {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  background: linear-gradient(155deg, var(--azul-medio) 0%, var(--azul-oscuro) 100%);
 }
 
 .tarjeta-nivel-pie {
@@ -324,9 +326,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .tarjeta-nivel-pie .ir svg { transition: transform 0.15s ease; }
 .tarjeta-nivel:hover .tarjeta-nivel-pie .ir svg { transform: translateX(4px); }
 
-.tarjeta-nivel-imagen-marcador {
-  aspect-ratio: 3 / 2;
-  background: linear-gradient(155deg, var(--azul-medio) 0%, var(--azul-oscuro) 100%);
+.tarjeta-nivel-imagen-marcador-texto {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -335,17 +337,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align: center;
   padding: 20px;
 }
-.tarjeta-nivel-imagen-marcador span {
+.tarjeta-nivel-imagen-marcador-texto span {
   font-family: var(--fuente-display);
   font-weight: 600;
   font-size: 1.3rem;
   color: var(--blanco);
 }
-.tarjeta-nivel-imagen-marcador span.lema {
+.tarjeta-nivel-imagen-marcador-texto span.lema {
   font-family: var(--fuente-mono);
   font-weight: 400;
   font-size: 0.74rem;
   color: var(--amarillo);
+}
+
+.tarjeta-nivel-imagen-cont .tarjeta-nivel-imagen {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .franja-camino {
@@ -395,6 +406,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--amarillo);
 }
 
+.hero-nivel-foto-editable {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 .seccion-enfasis {
   border-top: 1px solid var(--borde);
   padding: 30px 0 40px;
@@ -441,6 +461,21 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 85% 8%, rgba(244, 180, 0, 0.30), transparent 55%);
+  pointer-events: none;
+}
+
+.tarjeta-grado-foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tarjeta-grado-velo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(12, 29, 56, 0.88) 0%, rgba(12, 29, 56, 0.35) 55%, rgba(12, 29, 56, 0.05) 100%);
   pointer-events: none;
 }
 

@@ -15,20 +15,25 @@ function crearElemento(html) {
   return envoltorio.firstElementChild;
 }
 
+// Un pixel 100% transparente — se usa como "src" de una foto que
+// todavía no se ha subido, para que el fondo/marcador de abajo se
+// siga viendo hasta que alguien suba la foto real desde el modo edición.
+const PIXEL_TRANSPARENTE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
 // ---------- INICIO (index.html) ----------
 
 function initInicio() {
   const cont = $("#niveles-cont");
   NIVELES.forEach((nivel) => {
-    const visual = nivel.imagen
-      ? `<img class="tarjeta-nivel-imagen" src="${nivel.imagen}" alt="${nivel.nombre} — ${nivel.lema}">`
-      : `<div class="tarjeta-nivel-imagen tarjeta-nivel-imagen-marcador">
-           <span>${nivel.nombre}</span>
-           <span class="lema">${nivel.lema}</span>
-         </div>`;
     const tarjeta = crearElemento(`
       <a class="tarjeta-nivel" href="nivel.html?nivel=${nivel.id}">
-        ${visual}
+        <div class="tarjeta-nivel-imagen-cont">
+          <div class="tarjeta-nivel-imagen-marcador-texto">
+            <span>${nivel.nombre}</span>
+            <span class="lema">${nivel.lema}</span>
+          </div>
+          <img class="tarjeta-nivel-imagen" data-campo="nivel_img_${nivel.id}" src="${nivel.imagen || PIXEL_TRANSPARENTE}" alt="${nivel.nombre} — ${nivel.lema}">
+        </div>
         <div class="tarjeta-nivel-pie">
           <span class="ir">Ver grados de ${nivel.nombre} ${ICONOS.flecha()}</span>
         </div>
@@ -75,19 +80,14 @@ function initNivel() {
   const nivel = obtenerNivel(nivelId) || NIVELES[0];
   const grados = gradosPorNivel(nivel.id);
 
-  const bannerImg = $("#nivel-banner-img");
-  if (nivel.banner) {
-    bannerImg.src = nivel.banner;
-    bannerImg.alt = `Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José`;
-  } else {
-    const marcador = crearElemento(`
-      <div class="hero-nivel-marcador">
-        <span>${nivel.nombre}</span>
-        <span class="lema">${nivel.lema}</span>
-      </div>
-    `);
-    bannerImg.replaceWith(marcador);
-  }
+  const contBanner = $(".banner-cont");
+  contBanner.innerHTML = `
+    <div class="hero-nivel-marcador">
+      <span>${nivel.nombre}</span>
+      <span class="lema">${nivel.lema}</span>
+    </div>
+    <img class="hero-nivel-foto-editable" id="nivel-banner-img" data-campo="nivel_banner_${nivel.id}" src="${nivel.banner || PIXEL_TRANSPARENTE}" alt="Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José">
+  `;
 
   $("#nivel-pastilla").textContent = nivel.nombre;
   if (nivel.color === "amarillo") $("#nivel-pastilla").classList.add("amarilla");
@@ -101,6 +101,8 @@ function initNivel() {
   grados.forEach((grado) => {
     const tarjeta = crearElemento(`
       <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
+        <img class="tarjeta-grado-foto" data-campo="grado_mini_${grado.id}" src="${PIXEL_TRANSPARENTE}" alt="">
+        <div class="tarjeta-grado-velo"></div>
         <span class="edad">${grado.edad}</span>
         <h3>${grado.nombre}</h3>
         <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
@@ -150,21 +152,14 @@ function initGrado() {
 
   $all(".boton-inscribirse").forEach(b => b.href = `inscripcion.html?grado=${grado.id}`);
 
-  // Galería con marcadores de posición (aún no hay fotos reales)
+  // Galería con fotos editables (si no hay foto todavía, se ve el
+  // patrón a rayas — en cuanto se suba una desde el modo edición,
+  // esta la reemplaza automáticamente).
   const galeria = $("#galeria-cont");
-  grado.fotos.forEach((foto) => {
-    if (foto) {
-      galeria.appendChild(crearElemento(`<div class="foto-placeholder" style="background-image:url('${foto}'); background-size:cover; background-position:center; border-style:solid;"></div>`));
-    } else {
-      galeria.appendChild(crearElemento(`
-        <div class="foto-placeholder">
-          <div class="contenido-vacio">
-            ${ICONOS.foto("#2C58A0")}
-            <span>Foto del salón<br>de ${grado.nombre}<br>— próximamente</span>
-          </div>
-        </div>
-      `));
-    }
+  grado.fotos.forEach((foto, i) => {
+    galeria.appendChild(crearElemento(
+      `<img class="foto-placeholder foto-real" data-campo="grado_foto${i + 1}_${grado.id}" src="${foto || PIXEL_TRANSPARENTE}" alt="Foto del salón de ${grado.nombre}">`
+    ));
   });
 
   // Navegación al grado anterior / siguiente dentro del mismo recorrido

@@ -282,15 +282,19 @@ service cloud.firestore {
       allow read: if true;
       allow write: if request.auth != null;
     }
+    match /imagenes_nivel/{documento} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /imagenes_grado/{documento} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
   }
 }
 ```
 
 Dale clic a "Publicar".
-
-(Por ahora solo `index` y `conocenos` tienen fotos editables, por eso
-solo esas dos tienen su línea `imagenes_NOMBRE`. Si más adelante le
-agregamos fotos editables a otra página, agregamos su línea aquí.)
 
 ### 9.3 Cómo se usa
 
@@ -313,27 +317,32 @@ agregamos fotos editables a otra página, agregamos su línea aquí.)
 ### 9.4 Qué es editable por ahora
 
 - **Inicio (`index.html`)**: el texto y la foto del banner de bienvenida
-  ("Calidad que forma..."), y el título/descripción de "Elige el nivel
-  para empezar".
+  ("Calidad que forma..."), el título/descripción de "Elige el nivel
+  para empezar", y **la imagen de cada una de las 4 tarjetas de nivel**
+  (Preescolar, Primaria, Bachillerato, Bachillerato Técnico).
 - **Conócenos (`conocenos.html`)**: el título y párrafo de "Conócenos",
   los 6 datos institucionales (título + descripción de cada uno), el
   título/descripción/foto del logro deportivo, las 11 fotos de "Conoce
   el colegio", y en cada uno de los 5 proyectos pedagógicos: sus 2
   fotos, título y descripción.
+- **Nivel (`nivel.html`)**: **la foto grande del banner de arriba**
+  (distinta para cada nivel), y **la foto de cada cuadrito de grado**
+  dentro de la lista (por ejemplo, la foto de "Primero" dentro de
+  Primaria) — mientras no se suba una foto, el cuadrito se ve con su
+  color de siempre.
 - **Grado (`grado.html`)**: el texto de los 2 botones "Inscribirme a
-  este grado", el título "Sobre este grado", y el título/descripción de
-  la franja "¿Listo para dar el paso?" — estos textos son los mismos
-  para cualquier grado que se visite (es la misma plantilla).
+  este grado", el título "Sobre este grado", el título/descripción de
+  la franja "¿Listo para dar el paso?" (estos textos son los mismos
+  para cualquier grado, es la misma plantilla), y **las 2 fotos del
+  salón de cada grado** (sí son distintas por cada grado).
 - **Inscripción (`inscripcion.html`)**: el valor de la inscripción, el
   número de convenio Supergiros, la nota de instrucciones de pago, y el
   título/descripción de la pantalla "¡Inscripción enviada!".
 
 Lo que **no** es editable todavía: los íconos, los botones de WhatsApp,
 la descripción particular de cada grado y cada nivel (por ejemplo el
-texto propio de "Quinto" o de "Primaria"), y las fotos de los salones —
-esto último es más delicado porque cada grado necesita su propio
-contenido (12 grados × su información), así que lo dejamos para una
-siguiente vuelta si te sirve tenerlo editable también ahí.
+párrafo propio de "Quinto" o de "Primaria" — solo las fotos de esas
+partes son editables por ahora, el texto todavía sale de `data.js`).
 
 ### 9.5 Nota sobre "es gratis"
 
