@@ -101,8 +101,6 @@ function initNivel() {
   grados.forEach((grado) => {
     const tarjeta = crearElemento(`
       <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
-        <img class="tarjeta-grado-foto" data-campo="grado_mini_${grado.id}" data-sin-envoltorio src="${PIXEL_TRANSPARENTE}" alt="">
-        <div class="tarjeta-grado-velo"></div>
         <h3>${grado.nombre}</h3>
         <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
       </a>
