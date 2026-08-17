@@ -38,7 +38,7 @@
           <span class="pastilla amarilla" id="grado-edad"></span>
         </div>
         <div class="hero-acciones">
-          <a class="boton boton-primario boton-inscribirse" href="#">Inscribirme a este grado</a>
+          <a class="boton boton-primario boton-inscribirse" href="#" data-campo="btn_inscribirme_1">Inscribirme a este grado</a>
         </div>
       </div>
       <div class="galeria" id="galeria-cont"></div>
@@ -46,17 +46,17 @@
   </section>
 
   <section class="descripcion-grado envoltura">
-    <h2>Sobre este grado</h2>
+    <h2 data-campo="sobre_titulo">Sobre este grado</h2>
     <p id="grado-descripcion"></p>
   </section>
 
   <section class="envoltura">
     <div class="franja-cta">
       <div>
-        <h3>¿Listo para dar el paso?</h3>
-        <p>El formulario toma solo unos minutos.</p>
+        <h3 data-campo="cta_titulo">¿Listo para dar el paso?</h3>
+        <p data-campo="cta_descripcion">El formulario toma solo unos minutos.</p>
       </div>
-      <a class="boton boton-amarillo boton-inscribirse" href="#">Inscribirme a este grado</a>
+      <a class="boton boton-amarillo boton-inscribirse" href="#" data-campo="btn_inscribirme_2">Inscribirme a este grado</a>
     </div>
   </section>
 
@@ -68,7 +68,7 @@
 <footer class="pie">
   <div class="envoltura">
     <p>Real Colegio San José — Popayán, Cauca</p>
-    <p><a href="index.html">← Volver al inicio</a></p>
+    <p><a href="index.html">← Volver al inicio</a> · <a href="login.html">Acceso administrador</a></p>
   </div>
 </footer>
 
@@ -93,5 +93,13 @@
 <script src="js/iconos.js"></script>
 <script src="js/main.js"></script>
 <script>initGrado();</script>
+
+<script>const NOMBRE_DOCUMENTO = "grado";</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/admin-edit.js"></script>
+
 </body>
 </html>

@@ -124,13 +124,13 @@
         <div class="caja-pago">
           <div class="caja-pago-dato">
             <span>Valor de la inscripción</span>
-            <strong>$15.000</strong>
+            <strong data-campo="pago_valor">$15.000</strong>
           </div>
           <div class="caja-pago-dato">
             <span>Convenio Supergiros</span>
-            <strong>25755</strong>
+            <strong data-campo="pago_convenio">25755</strong>
           </div>
-          <p class="caja-pago-nota">Consigna por Supergiros al convenio de arriba y sube la foto del comprobante si ya la tienes — si no, puedes enviarla después; quedará marcada como pendiente de pago. Cualquier duda, comunícate al 321 811 4521 o al 321 811 5834.</p>
+          <p class="caja-pago-nota" data-campo="pago_nota">Consigna por Supergiros al convenio de arriba y sube la foto del comprobante si ya la tienes — si no, puedes enviarla después; quedará marcada como pendiente de pago. Cualquier duda, comunícate al 321 811 4521 o al 321 811 5834.</p>
         </div>
         <div class="campos-grid" style="margin-top:16px;">
           <div class="campo campo-completo campo-archivo">
@@ -150,8 +150,8 @@
 
     <div class="pantalla-exito" id="pantalla-exito" style="display:none;">
       <img class="mascota-exito" src="assets/mascota.png" alt="Mascota del Real Colegio San José celebrando">
-      <h2>¡Inscripción enviada!</h2>
-      <p>Gracias por completar el formulario. El colegio se pondrá en contacto pronto para continuar con el proceso de matrícula.</p>
+      <h2 data-campo="exito_titulo">¡Inscripción enviada!</h2>
+      <p data-campo="exito_descripcion">Gracias por completar el formulario. El colegio se pondrá en contacto pronto para continuar con el proceso de matrícula.</p>
       <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:18px;">
         <a class="boton boton-primario" id="boton-whatsapp" href="#" target="_blank" rel="noopener">Enviar comprobante por WhatsApp</a>
         <a class="boton boton-fantasma" href="index.html">Volver al inicio</a>
@@ -164,6 +164,7 @@
 <footer class="pie">
   <div class="envoltura">
     <p>Real Colegio San José — Popayán, Cauca</p>
+    <p><a href="login.html">Acceso administrador</a></p>
   </div>
 </footer>
 
@@ -189,5 +190,13 @@
 <script src="js/sheets-config.js"></script>
 <script src="js/main.js"></script>
 <script>initInscripcion();</script>
+
+<script>const NOMBRE_DOCUMENTO = "inscripcion";</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/admin-edit.js"></script>
+
 </body>
 </html>

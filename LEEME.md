@@ -263,13 +263,18 @@ Firebase.
 
 Estas reglas dicen: "cualquiera puede ver el contenido, pero solo alguien
 con sesión iniciada puede modificarlo". Ve a consola de Firebase →
-Firestore Database → pestaña "Reglas", borra lo que haya y pega esto:
+Firestore Database → pestaña "Reglas", borra lo que haya y pega esto
+(ya cubre las 5 páginas: inicio, conócenos, nivel, grado e inscripción):
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /contenido/{documento} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /imagenes_index/{documento} {
       allow read: if true;
       allow write: if request.auth != null;
     }
@@ -283,36 +288,52 @@ service cloud.firestore {
 
 Dale clic a "Publicar".
 
-(Si más adelante extendemos el panel a otras páginas, cada una agrega
-su propia línea `match /imagenes_NOMBRE/{documento} { ... }` aquí —
-te aviso cuando llegue ese momento.)
+(Por ahora solo `index` y `conocenos` tienen fotos editables, por eso
+solo esas dos tienen su línea `imagenes_NOMBRE`. Si más adelante le
+agregamos fotos editables a otra página, agregamos su línea aquí.)
 
 ### 9.3 Cómo se usa
 
 1. Entra a `login.html` desde el link "Acceso administrador" que está en
-   el pie de página de Conócenos (o directo por la URL).
+   el pie de página de **cualquier** página del sitio (inicio, conócenos,
+   niveles, grados, inscripción).
 2. Inicia sesión con el usuario que creaste en Authentication.
-3. Te manda a `conocenos.html` — ahora vas a ver una barra azul oscuro
-   arriba ("Modo edición") y un lapicito ✏️ amarillo junto a cada texto
-   y foto editable.
+3. La sesión queda activa en todo el sitio — puedes navegar a cualquier
+   página y vas a seguir viendo la barra de "Modo edición" y los
+   lapicitos ✏️ junto a lo que sea editable en esa página, sin tener que
+   volver a iniciar sesión.
 4. Clic en un lapicito de texto → se abre un cuadro para editarlo →
    "Guardar". Clic en un lapicito de foto → eliges el archivo nuevo →
    "Guardar" (tarda un par de segundos porque la comprime antes).
 5. Los cambios quedan guardados de inmediato — cualquier visitante que
    entre después (con o sin sesión) va a ver la versión nueva.
-6. "Cerrar sesión" en la barra azul para salir del modo edición.
+6. "Cerrar sesión" en la barra azul para salir del modo edición (esto
+   también cierra la sesión en las demás páginas).
 
 ### 9.4 Qué es editable por ahora
 
-En `conocenos.html`: el título y párrafo de "Conócenos", los 6 datos
-institucionales (título + descripción de cada uno), el título/
-descripción/foto del logro deportivo, las 11 fotos de "Conoce el
-colegio", y en cada uno de los 5 proyectos transversales: sus 2 fotos,
-título y descripción.
+- **Inicio (`index.html`)**: el texto y la foto del banner de bienvenida
+  ("Calidad que forma..."), y el título/descripción de "Elige el nivel
+  para empezar".
+- **Conócenos (`conocenos.html`)**: el título y párrafo de "Conócenos",
+  los 6 datos institucionales (título + descripción de cada uno), el
+  título/descripción/foto del logro deportivo, las 11 fotos de "Conoce
+  el colegio", y en cada uno de los 5 proyectos pedagógicos: sus 2
+  fotos, título y descripción.
+- **Grado (`grado.html`)**: el texto de los 2 botones "Inscribirme a
+  este grado", el título "Sobre este grado", y el título/descripción de
+  la franja "¿Listo para dar el paso?" — estos textos son los mismos
+  para cualquier grado que se visite (es la misma plantilla).
+- **Inscripción (`inscripcion.html`)**: el valor de la inscripción, el
+  número de convenio Supergiros, la nota de instrucciones de pago, y el
+  título/descripción de la pantalla "¡Inscripción enviada!".
 
-Lo que **no** es editable todavía desde el panel: los íconos, los
-botones de WhatsApp, y el resto de páginas del sitio (inicio, niveles,
-grados, inscripción) — vamos a ir extendiéndolo ahí según lo necesites.
+Lo que **no** es editable todavía: los íconos, los botones de WhatsApp,
+la descripción particular de cada grado y cada nivel (por ejemplo el
+texto propio de "Quinto" o de "Primaria"), y las fotos de los salones —
+esto último es más delicado porque cada grado necesita su propio
+contenido (12 grados × su información), así que lo dejamos para una
+siguiente vuelta si te sirve tenerlo editable también ahí.
 
 ### 9.5 Nota sobre "es gratis"
 

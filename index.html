@@ -30,13 +30,13 @@
   <section class="hero-conoce envoltura">
     <div class="hero-conoce-panel">
       <div class="hero-conoce-texto">
-        <span class="pastilla amarilla">#CaminoDeExcelencia</span>
-        <h1>Calidad que forma,<br><span class="acento">excelencia que transforma</span></h1>
-        <p>Conoce al Real Colegio San José: nuestra historia, nuestros proyectos y todo lo que hace parte del camino educativo que ofrecemos, de Preescolar a Bachillerato Técnico.</p>
-        <a class="boton boton-amarillo" href="conocenos.html#conocenos">Conoce más de nuestra institución ↓</a>
+        <span class="pastilla amarilla" data-campo="hero_pastilla">#CaminoDeExcelencia</span>
+        <h1><span data-campo="hero_titulo_1">Calidad que forma,</span><br><span class="acento" data-campo="hero_titulo_2">excelencia que transforma</span></h1>
+        <p data-campo="hero_descripcion">Conoce al Real Colegio San José: nuestra historia, nuestros proyectos y todo lo que hace parte del camino educativo que ofrecemos, de Preescolar a Bachillerato Técnico.</p>
+        <a class="boton boton-amarillo" href="conocenos.html#conocenos" data-campo="hero_boton_texto">Conoce más de nuestra institución ↓</a>
       </div>
       <div class="hero-conoce-foto">
-        <img class="foto-real" src="assets/galeria/hero-institucion.jpg" alt="Comunidad del Real Colegio San José">
+        <img class="foto-real" data-campo="hero_foto" src="assets/galeria/hero-institucion.jpg" alt="Comunidad del Real Colegio San José">
       </div>
     </div>
   </section>
@@ -50,8 +50,8 @@
   <section class="envoltura">
     <div class="panel-inicio">
       <div class="bienvenida-corta">
-        <h1>Elige el nivel para empezar</h1>
-        <p>Desde Transición hasta Once: conoce cada salón, revisa la descripción del grado y realiza la inscripción en línea en pocos minutos.</p>
+        <h1 data-campo="bienvenida_titulo">Elige el nivel para empezar</h1>
+        <p data-campo="bienvenida_descripcion">Desde Transición hasta Once: conoce cada salón, revisa la descripción del grado y realiza la inscripción en línea en pocos minutos.</p>
       </div>
 
       <div class="niveles" id="niveles-cont"></div>
@@ -67,7 +67,7 @@
 <footer class="pie">
   <div class="envoltura">
     <p>Real Colegio San José — Popayán, Cauca</p>
-    <p>Proceso de registro de estudiantes</p>
+    <p>Proceso de registro de estudiantes · <a href="login.html">Acceso administrador</a></p>
   </div>
 </footer>
 
@@ -92,5 +92,13 @@
 <script src="js/iconos.js"></script>
 <script src="js/main.js"></script>
 <script>initInicio();</script>
+
+<script>const NOMBRE_DOCUMENTO = "index";</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/admin-edit.js"></script>
+
 </body>
 </html>
