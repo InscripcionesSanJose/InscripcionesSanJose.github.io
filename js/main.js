@@ -154,6 +154,7 @@ function initGrado() {
   // patrón a rayas — en cuanto se suba una desde el modo edición,
   // esta la reemplaza automáticamente).
   const galeria = $("#galeria-cont");
+  if (grado.fotos.length === 1) galeria.classList.add("galeria-una-foto");
   grado.fotos.forEach((foto, i) => {
     const clase = foto ? "foto-real foto-con-borde" : "foto-placeholder foto-real";
     galeria.appendChild(crearElemento(

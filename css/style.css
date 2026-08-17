@@ -1265,3 +1265,17 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
   border: 3px solid var(--azul);
   border-radius: 22px;
 }
+
+/* Cuando un grado solo tiene 1 foto (en vez de 2), esa foto ocupa
+   todo el espacio de la galería, no solo la mitad. */
+.galeria.galeria-una-foto {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+.galeria.galeria-una-foto .foto-con-borde,
+.galeria.galeria-una-foto .foto-placeholder {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  width: 100%;
+  height: 100%;
+}

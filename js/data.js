@@ -178,7 +178,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
     descripcion: "Quinto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de primaria/bachillerato.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "sexto-adultos",
@@ -187,7 +187,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
     descripcion: "Sexto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "septimo-adultos",
@@ -196,7 +196,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
     descripcion: "Séptimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "octavo-adultos",
@@ -205,7 +205,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
     descripcion: "Octavo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "noveno-adultos",
@@ -214,7 +214,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
     descripcion: "Noveno dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "decimo-adultos",
@@ -223,7 +223,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
     descripcion: "Décimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "once-adultos",
@@ -232,7 +232,7 @@ const GRADOS = [
     edad: "Población adulta",
     descripcionCorta: "El último ciclo del proceso para adultos.",
     descripcion: "Once dentro del programa de Bachillerato por Ciclos CLEI, el último paso antes de obtener el título de bachiller.",
-    fotos: ["assets/clei-info.jpg", "assets/clei-info.jpg"]
+    fotos: ["assets/clei-info.jpg"]
   }
 ];
 
