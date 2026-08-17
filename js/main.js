@@ -271,6 +271,8 @@ function initInscripcion() {
     $("#grupo-pago").style.display = "none";
     $("#doc-frente").required = false;
     $("#doc-reverso").required = false;
+    $("#grupo-est-telefono").style.display = "block";
+    $("#est-telefono").required = true;
 
     // Para este programa el acudiente solo aplica si el estudiante es
     // menor de edad — se deja de pedir como obligatorio.
@@ -310,6 +312,7 @@ function initInscripcion() {
         estudiante_nombre: datosFormulario.get("estudiante_nombre"),
         estudiante_tipo_documento: datosFormulario.get("estudiante_tipo_documento"),
         estudiante_documento: datosFormulario.get("estudiante_documento"),
+        estudiante_telefono: datosFormulario.get("estudiante_telefono"),
         acudiente_nombre: datosFormulario.get("acudiente_nombre"),
         acudiente_tipo_documento: datosFormulario.get("acudiente_tipo_documento"),
         acudiente_documento: datosFormulario.get("acudiente_documento"),
