@@ -46,6 +46,16 @@ const NIVELES = [
     // nombre en texto mientras encargas las imágenes de este nivel nuevo.
     imagen: null,
     banner: null
+  },
+  {
+    id: "bachillerato-adultos",
+    nombre: "Bachillerato por Ciclos CLEI",
+    lema: "Educación flexible para adultos",
+    descripcion: "De Quinto a Once, un programa pensado para personas adultas que quieren terminar el bachillerato, con requisitos de inscripción propios.",
+    color: "azulOscuro",
+    // Sin imagen propia todavía.
+    imagen: null,
+    banner: null
   }
 ];
 
@@ -159,6 +169,69 @@ const GRADOS = [
     edad: "16 a 17 años",
     descripcionCorta: "El último año, rumbo a la universidad.",
     descripcion: "Once es el cierre del colegio: preparación para las pruebas Saber 11, culminación del énfasis técnico elegido, y acompañamiento en la elección de carrera antes de dar el salto a la educación superior.",
+    fotos: [null, null]
+  },
+  {
+    id: "quinto-adultos",
+    nombre: "Quinto-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
+    descripcion: "Quinto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de primaria/bachillerato.",
+    fotos: [null, null]
+  },
+  {
+    id: "sexto-adultos",
+    nombre: "Sexto-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
+    descripcion: "Sexto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    fotos: [null, null]
+  },
+  {
+    id: "septimo-adultos",
+    nombre: "Séptimo-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
+    descripcion: "Séptimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    fotos: [null, null]
+  },
+  {
+    id: "octavo-adultos",
+    nombre: "Octavo-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
+    descripcion: "Octavo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    fotos: [null, null]
+  },
+  {
+    id: "noveno-adultos",
+    nombre: "Noveno-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
+    descripcion: "Noveno dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    fotos: [null, null]
+  },
+  {
+    id: "decimo-adultos",
+    nombre: "Décimo-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
+    descripcion: "Décimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    fotos: [null, null]
+  },
+  {
+    id: "once-adultos",
+    nombre: "Once-A de adultos",
+    nivelId: "bachillerato-adultos",
+    edad: "Población adulta",
+    descripcionCorta: "El último ciclo del proceso para adultos.",
+    descripcion: "Once dentro del programa de Bachillerato por Ciclos CLEI, el último paso antes de obtener el título de bachiller.",
     fotos: [null, null]
   }
 ];

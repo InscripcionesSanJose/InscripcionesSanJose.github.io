@@ -64,9 +64,9 @@
         </div>
       </fieldset>
 
-      <fieldset class="grupo-form">
+      <fieldset class="grupo-form" id="grupo-acudiente">
         <legend>Datos del padre, madre o acudiente</legend>
-        <p class="subtexto">Persona responsable del proceso de matrícula.</p>
+        <p class="subtexto" id="acudiente-subtexto">Persona responsable del proceso de matrícula.</p>
         <div class="campos-grid">
           <div class="campo campo-completo">
             <label for="acu-nombre">Nombre completo</label>
@@ -93,7 +93,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="grupo-form">
+      <fieldset class="grupo-form" id="grupo-documento-identidad">
         <legend>Documento de identidad</legend>
         <p class="subtexto">Foto del registro civil o tarjeta de identidad del estudiante, por ambos lados.</p>
         <div class="campos-grid">
@@ -119,7 +119,14 @@
         </div>
       </fieldset>
 
-      <fieldset class="grupo-form">
+      <fieldset class="grupo-form" id="grupo-clei" style="display:none;">
+        <legend>Requisitos — Bachillerato por Ciclos CLEI</legend>
+        <p class="subtexto">Esto es lo que debes llevar para inscribirte a este programa. No se sube aquí — agenda una cita con Coordinación para entregarlo en persona.</p>
+        <img src="assets/requisitos-clei.jpg" alt="Requisitos para matrícula — Bachillerato por Ciclos CLEI" style="width:100%; border-radius:10px; margin-bottom:18px; border:1px solid var(--borde);">
+        <a class="boton boton-primario" href="https://institucionsanjose.github.io/calendario.html?categoria=coordinador&persona=2qsdl1aof3FCxDeLRvx9" target="_blank" rel="noopener">Agendar cita con Coordinación</a>
+      </fieldset>
+
+      <fieldset class="grupo-form" id="grupo-pago">
         <legend>Pago de la inscripción</legend>
         <div class="caja-pago">
           <div class="caja-pago-dato">

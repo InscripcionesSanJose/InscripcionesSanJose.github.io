@@ -74,6 +74,32 @@ Documento - Frente | Documento - Reverso | Constancia de comportamiento | Compro
 En esas columnas va a quedar el enlace a cada foto (no la imagen en sí,
 sino un link que abre la foto guardada en Drive).
 
+### 7 pestañas nuevas: "Bachillerato por Ciclos CLEI" (adultos)
+
+El sitio ahora también tiene el programa **Bachillerato por Ciclos
+CLEI** (para adultos), que va de Quinto a Once. La primera vez que
+alguien se inscriba en cada uno, el script va a **crear estas 7
+pestañas solo** (no hace falta que las crees a mano):
+
+```
+Quinto-A de adultos
+Sexto-A de adultos
+Séptimo-A de adultos
+Octavo-A de adultos
+Noveno-A de adultos
+Décimo-A de adultos
+Once-A de adultos
+```
+
+Van a tener las mismas 12 columnas de siempre (A a L) — para este
+programa el formulario no pide subir documentos (los llevan en persona
+a la cita con Coordinación), así que las columnas I a K casi siempre
+van a quedar vacías en estas pestañas, y eso es normal.
+
+No necesitas crear estas pestañas manualmente — el código del paso 4
+las arma automáticamente la primera vez que alguien envíe el
+formulario de uno de esos siete grados.
+
 ## 4. Actualiza el código en Apps Script
 
 1. Abre tu Google Sheet → **Extensiones → Apps Script** (el mismo proyecto
@@ -262,31 +288,16 @@ Firebase.
 ### 9.2 Pega las reglas de seguridad de Firestore
 
 Estas reglas dicen: "cualquiera puede ver el contenido, pero solo alguien
-con sesión iniciada puede modificarlo". Ve a consola de Firebase →
-Firestore Database → pestaña "Reglas", borra lo que haya y pega esto
-(ya cubre las 5 páginas: inicio, conócenos, nivel, grado e inscripción):
+con sesión iniciada puede modificarlo" — y aplican para cualquier
+colección del proyecto (así no hay que agregar una línea nueva cada vez
+que el panel se extiende a algo nuevo). Ve a consola de Firebase →
+Firestore Database → pestaña "Reglas", borra lo que haya y pega esto:
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /contenido/{documento} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /imagenes_index/{documento} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /imagenes_conocenos/{documento} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /imagenes_nivel/{documento} {
-      allow read: if true;
-      allow write: if request.auth != null;
-    }
-    match /imagenes_grado/{documento} {
+    match /{coleccion}/{documento} {
       allow read: if true;
       allow write: if request.auth != null;
     }

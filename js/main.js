@@ -103,7 +103,6 @@ function initNivel() {
       <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
         <img class="tarjeta-grado-foto" data-campo="grado_mini_${grado.id}" data-sin-envoltorio src="${PIXEL_TRANSPARENTE}" alt="">
         <div class="tarjeta-grado-velo"></div>
-        <span class="edad">${grado.edad}</span>
         <h3>${grado.nombre}</h3>
         <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
       </a>
@@ -146,7 +145,6 @@ function initGrado() {
   $("#miga-nivel").href = `nivel.html?nivel=${nivel.id}`;
   $("#grado-pastilla-nivel").textContent = nivel.nombre;
   $("#grado-titulo").textContent = grado.nombre;
-  $("#grado-edad").textContent = grado.edad;
   $("#grado-descripcion-corta").textContent = grado.descripcionCorta;
   $("#grado-descripcion").textContent = grado.descripcion;
 
@@ -252,7 +250,8 @@ function initInscripcion() {
   const gradoId = obtenerParametro("grado");
   const grado = obtenerGrado(gradoId) || GRADOS[0];
   const nivel = obtenerNivel(grado.nivelId);
-  const requiereConstancia = grado.nivelId !== "preescolar";
+  const esCLEI = grado.nivelId === "bachillerato-adultos";
+  const requiereConstancia = grado.nivelId !== "preescolar" && !esCLEI;
   $("#insc-miga").textContent = grado.nombre;
   $("#insc-miga").href = `grado.html?grado=${grado.id}`;
   $("#insc-titulo").textContent = `Inscripción — ${grado.nombre}`;
@@ -264,6 +263,21 @@ function initInscripcion() {
     grupoConstancia.style.display = "none";
   } else {
     campoConstancia.required = true;
+  }
+
+  if (esCLEI) {
+    $("#grupo-clei").style.display = "block";
+    $("#grupo-documento-identidad").style.display = "none";
+    $("#grupo-pago").style.display = "none";
+    $("#doc-frente").required = false;
+    $("#doc-reverso").required = false;
+
+    // Para este programa el acudiente solo aplica si el estudiante es
+    // menor de edad — se deja de pedir como obligatorio.
+    $("#acudiente-subtexto").textContent = "Solo diligencia esto si el estudiante es menor de edad.";
+    ["#acu-nombre", "#acu-tipo-doc", "#acu-documento", "#acu-telefono"].forEach((sel) => {
+      $(sel).required = false;
+    });
   }
 
   const form = $("#form-inscripcion");
