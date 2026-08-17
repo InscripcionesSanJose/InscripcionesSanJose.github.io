@@ -26,6 +26,15 @@ const LADO_MAXIMO_ADMIN = 1400;
 const CALIDAD_ADMIN = 0.78;
 
 function iniciarModoEdicion() {
+  // El link "Acceso administrador" del pie recuerda la página exacta
+  // (con sus parámetros, como ?grado=quinto) para volver ahí después
+  // de iniciar sesión, no solo la plantilla genérica.
+  const linkLogin = document.querySelector('a[href^="login.html"]');
+  if (linkLogin) {
+    const destino = window.location.pathname.split("/").pop() + window.location.search;
+    linkLogin.href = "login.html?volver=" + encodeURIComponent(destino);
+  }
+
   const db = firebase.firestore();
   const refDocumento = db.collection("contenido").doc(NOMBRE_DOCUMENTO);
   const refImagenes = db.collection("imagenes_" + NOMBRE_DOCUMENTO);
@@ -83,17 +92,29 @@ function activarLapiceros(refDocumento, refImagenes) {
 }
 
 function envolverConLapiz(el, tipo, refDocumento, refImagenes) {
-  const envoltorio = document.createElement("span");
-  envoltorio.className = "envoltorio-editable";
-  el.parentNode.insertBefore(envoltorio, el);
-  envoltorio.appendChild(el);
+  const sinEnvoltorio = el.hasAttribute("data-sin-envoltorio");
+
+  let contenedorLapiz;
+  if (sinEnvoltorio) {
+    // Esta imagen ya se posiciona sola respecto a un contenedor de
+    // más arriba (como la foto del banner) — envolverla rompería
+    // ese recorte, así que el lápiz se agrega directo junto a ella,
+    // sin envoltorio nuevo.
+    contenedorLapiz = el.parentNode;
+  } else {
+    const envoltorio = document.createElement("span");
+    envoltorio.className = "envoltorio-editable";
+    el.parentNode.insertBefore(envoltorio, el);
+    envoltorio.appendChild(el);
+    contenedorLapiz = envoltorio;
+  }
 
   const lapiz = document.createElement("button");
   lapiz.type = "button";
   lapiz.className = "boton-lapiz";
   lapiz.setAttribute("aria-label", "Editar");
   lapiz.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>`;
-  envoltorio.appendChild(lapiz);
+  contenedorLapiz.appendChild(lapiz);
 
   lapiz.addEventListener("click", () => {
     if (tipo === "texto") abrirEditorTexto(el, refDocumento);

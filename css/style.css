@@ -1105,6 +1105,14 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
   display: inline-flex;
 }
 
+/* Cuando el lápiz queda pegado directo al contenedor de una foto que
+   recorta sus bordes (overflow: hidden), se mete un poco hacia
+   adentro para que no quede cortado. */
+.hero-conoce-foto > .boton-lapiz {
+  top: 10px;
+  right: 10px;
+}
+
 /* Para que el lápiz de una imagen quede bien ubicado, la imagen
    necesita estar dentro de un contenedor con position relative
    (el .envoltorio-editable ya cumple esa función). */

@@ -62,9 +62,12 @@
   const mensaje = document.getElementById("mensaje-login");
   const boton = document.getElementById("boton-login");
 
-  // Si ya hay sesión iniciada, manda directo a Conócenos en modo edición.
+  const parametros = new URLSearchParams(window.location.search);
+  const destino = parametros.get("volver") || "conocenos.html";
+
+  // Si ya hay sesión iniciada, manda directo de vuelta.
   firebase.auth().onAuthStateChanged((usuario) => {
-    if (usuario) window.location.href = "conocenos.html";
+    if (usuario) window.location.href = destino;
   });
 
   form.addEventListener("submit", (evento) => {
@@ -78,7 +81,7 @@
 
     firebase.auth().signInWithEmailAndPassword(correo, clave)
       .then(() => {
-        window.location.href = "conocenos.html";
+        window.location.href = destino;
       })
       .catch((error) => {
         mensaje.textContent = "Correo o contraseña incorrectos.";
