@@ -1043,3 +1043,109 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
   padding: 5px 12px;
   margin-bottom: 14px;
 }
+
+/* ============================================================
+   MODO EDICIÓN — admin-edit.js
+   ============================================================ */
+
+.barra-admin {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--azul-oscuro);
+  color: var(--blanco);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.barra-admin button {
+  background: var(--amarillo);
+  color: var(--azul-oscuro);
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.barra-admin button:hover { background: #ffcb2e; }
+
+.envoltorio-editable {
+  position: relative;
+  display: inline;
+}
+
+.modo-edicion img[data-campo] {
+  position: relative;
+}
+
+.boton-lapiz {
+  display: none;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--amarillo);
+  color: var(--azul-oscuro);
+  border: 2px solid var(--blanco);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  z-index: 20;
+}
+
+.modo-edicion .boton-lapiz {
+  display: inline-flex;
+}
+
+/* Para que el lápiz de una imagen quede bien ubicado, la imagen
+   necesita estar dentro de un contenedor con position relative
+   (el .envoltorio-editable ya cumple esa función). */
+.envoltorio-editable img[data-campo] { display: block; width: 100%; height: 100%; }
+
+.overlay-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 29, 56, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.caja-modal {
+  background: var(--blanco);
+  border-radius: var(--radio);
+  padding: 28px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+.caja-modal h3 { color: var(--azul); font-size: 1.15rem; margin-bottom: 16px; }
+.caja-modal textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1.4px solid var(--borde);
+  border-radius: var(--radio-chico);
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+  resize: vertical;
+  margin-bottom: 14px;
+}
+.caja-modal input[type="file"] { margin-bottom: 8px; width: 100%; }
+
+.acciones-modal {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+}

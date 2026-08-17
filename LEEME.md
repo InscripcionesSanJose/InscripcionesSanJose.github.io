@@ -232,3 +232,92 @@ desde `main` / raíz.
 - Si quieren un número de WhatsApp distinto como principal, dime y cambio
   el número en `js/main.js` (variable `WHATSAPP_NUMERO`).
 
+
+## 9. Panel de administración (editar textos e imágenes en vivo)
+
+`conocenos.html` ahora se puede editar directamente desde el navegador,
+sin tocar código, usando Firebase — **sin necesidad de tarjeta ni del
+plan de pago Blaze**. Así queda armado:
+
+- `login.html` — página para iniciar sesión con tu correo y contraseña
+  de administrador.
+- `js/firebase-config.js` — **aquí debes pegar** las claves de tu
+  proyecto de Firebase (ver más abajo).
+- `js/admin-edit.js` — el motor del modo edición: cuando inicias sesión,
+  le agrega un lapicito ✏️ a cada texto e imagen editable de la página.
+
+**Nota técnica:** las fotos no usan "Firebase Storage" (ese servicio
+ahora exige el plan pago Blaze, aunque el uso real sea gratis). En vez
+de eso, cada foto que subas se comprime en el navegador y se guarda
+como texto dentro de Firestore — el mismo servicio gratis que ya usas
+para los textos. Solo necesitas activar Firestore, no Storage.
+
+### 9.1 Completa `js/firebase-config.js`
+
+Abre ese archivo y reemplaza los 6 valores (`apiKey`, `authDomain`,
+`projectId`, `storageBucket`, `messagingSenderId`, `appId`) por los que
+copiaste en "Configuración del proyecto → Tus apps" de la consola de
+Firebase.
+
+### 9.2 Pega las reglas de seguridad de Firestore
+
+Estas reglas dicen: "cualquiera puede ver el contenido, pero solo alguien
+con sesión iniciada puede modificarlo". Ve a consola de Firebase →
+Firestore Database → pestaña "Reglas", borra lo que haya y pega esto:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /contenido/{documento} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+    match /imagenes_conocenos/{documento} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}
+```
+
+Dale clic a "Publicar".
+
+(Si más adelante extendemos el panel a otras páginas, cada una agrega
+su propia línea `match /imagenes_NOMBRE/{documento} { ... }` aquí —
+te aviso cuando llegue ese momento.)
+
+### 9.3 Cómo se usa
+
+1. Entra a `login.html` desde el link "Acceso administrador" que está en
+   el pie de página de Conócenos (o directo por la URL).
+2. Inicia sesión con el usuario que creaste en Authentication.
+3. Te manda a `conocenos.html` — ahora vas a ver una barra azul oscuro
+   arriba ("Modo edición") y un lapicito ✏️ amarillo junto a cada texto
+   y foto editable.
+4. Clic en un lapicito de texto → se abre un cuadro para editarlo →
+   "Guardar". Clic en un lapicito de foto → eliges el archivo nuevo →
+   "Guardar" (tarda un par de segundos porque la comprime antes).
+5. Los cambios quedan guardados de inmediato — cualquier visitante que
+   entre después (con o sin sesión) va a ver la versión nueva.
+6. "Cerrar sesión" en la barra azul para salir del modo edición.
+
+### 9.4 Qué es editable por ahora
+
+En `conocenos.html`: el título y párrafo de "Conócenos", los 6 datos
+institucionales (título + descripción de cada uno), el título/
+descripción/foto del logro deportivo, las 11 fotos de "Conoce el
+colegio", y en cada uno de los 5 proyectos transversales: sus 2 fotos,
+título y descripción.
+
+Lo que **no** es editable todavía desde el panel: los íconos, los
+botones de WhatsApp, y el resto de páginas del sitio (inicio, niveles,
+grados, inscripción) — vamos a ir extendiéndolo ahí según lo necesites.
+
+### 9.5 Nota sobre "es gratis"
+
+Firestore (sin Storage) tiene un plan gratuito (Spark) que alcanza de
+sobra para esto — decenas de miles de lecturas y escrituras al día,
+sin necesidad de tarjeta registrada. Para los volúmenes de un sitio de
+colegio, esto no debería costar nada nunca.
+

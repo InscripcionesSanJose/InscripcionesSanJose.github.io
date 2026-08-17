@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión — Real Colegio San José</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="franja-superior"></div>
+
+<header class="encabezado">
+  <div class="envoltura">
+    <a class="marca" href="index.html">
+      <img src="assets/logo.png" alt="Escudo Real Colegio San José">
+      <span class="marca-texto">
+        <strong>Real Colegio San José</strong>
+        <span>Registro de estudiantes</span>
+      </span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <section class="envoltura" style="max-width: 420px; padding: 60px 20px 100px;">
+    <div class="tarjeta-form" style="padding: 34px;">
+      <span class="pastilla">Acceso administrador</span>
+      <h1 style="font-size: 1.5rem; color: var(--azul); margin: 14px 0 20px;">Iniciar sesión</h1>
+
+      <form id="form-login">
+        <div class="campo campo-completo" style="margin-bottom: 16px;">
+          <label for="login-correo">Correo</label>
+          <input type="email" id="login-correo" required autocomplete="username">
+        </div>
+        <div class="campo campo-completo" style="margin-bottom: 20px;">
+          <label for="login-clave">Contraseña</label>
+          <input type="password" id="login-clave" required autocomplete="current-password">
+        </div>
+
+        <div id="mensaje-login" class="mensaje-estado"></div>
+
+        <button type="submit" class="boton boton-primario" id="boton-login" style="width: 100%;">Entrar</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <p>Real Colegio San José — Popayán, Cauca</p>
+    <p><a href="index.html">← Volver al inicio</a></p>
+  </div>
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script>
+  const form = document.getElementById("form-login");
+  const mensaje = document.getElementById("mensaje-login");
+  const boton = document.getElementById("boton-login");
+
+  // Si ya hay sesión iniciada, manda directo a Conócenos en modo edición.
+  firebase.auth().onAuthStateChanged((usuario) => {
+    if (usuario) window.location.href = "conocenos.html";
+  });
+
+  form.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    const correo = document.getElementById("login-correo").value.trim();
+    const clave = document.getElementById("login-clave").value;
+
+    mensaje.className = "mensaje-estado";
+    boton.disabled = true;
+    boton.textContent = "Entrando...";
+
+    firebase.auth().signInWithEmailAndPassword(correo, clave)
+      .then(() => {
+        window.location.href = "conocenos.html";
+      })
+      .catch((error) => {
+        mensaje.textContent = "Correo o contraseña incorrectos.";
+        mensaje.className = "mensaje-estado visible error";
+        boton.disabled = false;
+        boton.textContent = "Entrar";
+      });
+  });
+</script>
+</body>
+</html>
