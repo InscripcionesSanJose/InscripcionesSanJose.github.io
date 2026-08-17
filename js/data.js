@@ -1,259 +1,355 @@
 // ============================================================
-// data.js — Toda la información de niveles y grados vive aquí.
-// Para editar textos, edades o agregar fotos reales, solo
-// modifica este archivo. No hace falta tocar el HTML ni el CSS.
+// main.js — Renderiza cada página a partir de data.js
 // ============================================================
 
-const NIVELES = [
-  {
-    id: "preescolar",
-    nombre: "Preescolar",
-    lema: "Los primeros pasos",
-    descripcion: "El punto de partida: juego, exploración y las primeras letras.",
-    color: "amarillo",
-    imagen: "assets/nivel-preescolar.png",
-    banner: "assets/banner-preescolar.png"
-  },
-  {
-    id: "primaria",
-    nombre: "Primaria",
-    lema: "Construyendo las bases",
-    descripcion: "De Primero a Quinto, donde se afianzan la lectura, la escritura y el pensamiento lógico.",
-    color: "azul",
-    imagen: "assets/nivel-primaria.png",
-    banner: "assets/banner-primaria.png"
-  },
-  {
-    id: "bachillerato",
-    nombre: "Bachillerato",
-    lema: "Formación con propósito",
-    descripcion: "De Sexto a Noveno, formación integral y preparación para la etapa vocacional.",
-    color: "azulOscuro",
-    // OJO: estas imágenes son las que tenías para "Secundaria de Sexto a Once" —
-    // el texto de la imagen (banner-secundaria.png / nivel-secundaria.png) ya no
-    // coincide del todo (dice "de Sexto a Once"). Sirven de placeholder mientras
-    // encargas unas nuevas que digan "Bachillerato, de Sexto a Noveno".
-    imagen: "assets/nivel-secundaria.png",
-    banner: "assets/banner-secundaria.png"
-  },
-  {
-    id: "bachillerato-tecnico",
-    nombre: "Bachillerato Técnico",
-    lema: "Media vocacional",
-    descripcion: "De Décimo a Once, con énfasis técnico: Enfermería, Servicios Farmacéuticos, Sistemas, Trabajo Social, Educación a la Primera Infancia y Seguridad y Salud en el Trabajo.",
-    color: "azul",
-    // Sin imagen propia todavía — el sitio usa un bloque de color con el
-    // nombre en texto mientras encargas las imágenes de este nivel nuevo.
-    imagen: null,
-    banner: null
-  },
-  {
-    id: "bachillerato-adultos",
-    nombre: "Bachillerato por Ciclos CLEI",
-    lema: "Educación flexible para adultos",
-    descripcion: "De Quinto a Once, un programa pensado para personas adultas que quieren terminar el bachillerato, con requisitos de inscripción propios.",
-    color: "azulOscuro",
-    // Sin imagen propia todavía.
-    imagen: null,
-    banner: null
-  }
-];
+function $(sel, ctx = document) { return ctx.querySelector(sel); }
+function $all(sel, ctx = document) { return [...ctx.querySelectorAll(sel)]; }
 
-// "fotos" son marcadores de posición (placeholders) — no son fotos reales
-// todavía. Cuando el colegio entregue fotos de los salones, se reemplazan
-// aquí poniendo la ruta del archivo, por ejemplo: "assets/salones/primero-1.jpg"
-const GRADOS = [
-  {
-    id: "transicion",
-    nombre: "Transición",
-    nivelId: "preescolar",
-    edad: "5 a 6 años",
-    descripcionCorta: "El primer salón, pensado para jugar y descubrir.",
-    descripcion: "En Transición los niños dan su primer paso dentro del aula formal: aprenden compartiendo, jugando y explorando. El salón está diseñado a su altura, con rincones de lectura, arte y construcción, para que cada día sea una nueva aventura de descubrimiento.",
-    fotos: [null]
-  },
-  {
-    id: "primero",
-    nombre: "Primero",
-    nivelId: "primaria",
-    edad: "6 a 7 años",
-    descripcionCorta: "Las primeras letras y los primeros números.",
-    descripcion: "Primero de primaria es el salto a la lectura y la escritura autónoma. El salón está ambientado con material didáctico y rincones temáticos que acompañan el proceso de cada estudiante a su propio ritmo.",
-    fotos: [null]
-  },
-  {
-    id: "segundo",
-    nombre: "Segundo",
-    nivelId: "primaria",
-    edad: "7 a 8 años",
-    descripcionCorta: "Afianzando la lectura y la escritura.",
-    descripcion: "En Segundo se consolidan las habilidades de lectura y escritura, y se introducen proyectos de trabajo en equipo. Un espacio luminoso, pensado para la concentración y el trabajo colaborativo.",
-    fotos: [null]
-  },
-  {
-    id: "tercero",
-    nombre: "Tercero",
-    nivelId: "primaria",
-    edad: "8 a 9 años",
-    descripcionCorta: "Pensamiento lógico y primeros proyectos.",
-    descripcion: "Tercero incorpora proyectos más elaborados y el pensamiento lógico-matemático toma protagonismo. El salón cuenta con espacio para exposiciones y trabajo en grupos pequeños.",
-    fotos: [null]
-  },
-  {
-    id: "cuarto",
-    nombre: "Cuarto",
-    nivelId: "primaria",
-    edad: "9 a 10 años",
-    descripcionCorta: "Autonomía y pensamiento crítico en desarrollo.",
-    descripcion: "En Cuarto los estudiantes ganan autonomía: investigan, argumentan y sustentan sus ideas. El aula está equipada para apoyar proyectos de ciencias y trabajo en equipo.",
-    fotos: [null]
-  },
-  {
-    id: "quinto",
-    nombre: "Quinto",
-    nivelId: "primaria",
-    edad: "10 a 11 años",
-    descripcionCorta: "El cierre de la primaria, listos para un nuevo reto.",
-    descripcion: "Quinto cierra el ciclo de primaria consolidando hábitos de estudio y liderazgo, preparando a los estudiantes para el paso a secundaria con confianza y herramientas propias.",
-    fotos: [null]
-  },
-  {
-    id: "sexto",
-    nombre: "Sexto",
-    nivelId: "bachillerato",
-    edad: "11 a 12 años",
-    descripcionCorta: "La bienvenida al bachillerato.",
-    descripcion: "Sexto marca el ingreso al bachillerato: nuevas asignaturas, nuevos docentes y mayor independencia. El salón está adaptado para el trabajo por áreas y proyectos interdisciplinarios.",
-    fotos: [null]
-  },
-  {
-    id: "septimo",
-    nombre: "Séptimo",
-    nivelId: "bachillerato",
-    edad: "12 a 13 años",
-    descripcionCorta: "Profundizando en cada asignatura.",
-    descripcion: "En Séptimo se profundiza el contenido de cada área y se fortalecen las habilidades de investigación y análisis, con espacios para el trabajo práctico y en grupo.",
-    fotos: [null]
-  },
-  {
-    id: "octavo",
-    nombre: "Octavo",
-    nivelId: "bachillerato",
-    edad: "13 a 14 años",
-    descripcionCorta: "Pensamiento crítico y proyectos propios.",
-    descripcion: "Octavo impulsa el pensamiento crítico y la argumentación, con proyectos que integran varias asignaturas y un acompañamiento cercano en la etapa de adolescencia.",
-    fotos: [null]
-  },
-  {
-    id: "noveno",
-    nombre: "Noveno",
-    nivelId: "bachillerato",
-    edad: "14 a 15 años",
-    descripcionCorta: "Orientación vocacional y cierre del bachillerato.",
-    descripcion: "En Noveno inicia el proceso de orientación vocacional, cerrando el bachillerato y preparando al estudiante para elegir su énfasis dentro del Bachillerato Técnico.",
-    fotos: [null]
-  },
-  {
-    id: "decimo",
-    nombre: "Décimo",
-    nivelId: "bachillerato-tecnico",
-    edad: "15 a 16 años",
-    descripcionCorta: "Media técnica y proyecto de vida.",
-    descripcion: "Décimo profundiza en el proyecto de vida de cada estudiante, con énfasis técnico en áreas como Enfermería, Sistemas, Trabajo Social, Educación a la Primera Infancia, Servicios Farmacéuticos o Seguridad y Salud en el Trabajo.",
-    fotos: [null]
-  },
-  {
-    id: "once",
-    nombre: "Once",
-    nivelId: "bachillerato-tecnico",
-    edad: "16 a 17 años",
-    descripcionCorta: "El último año, rumbo a la universidad.",
-    descripcion: "Once es el cierre del colegio: preparación para las pruebas Saber 11, culminación del énfasis técnico elegido, y acompañamiento en la elección de carrera antes de dar el salto a la educación superior.",
-    fotos: [null]
-  },
-  {
-    id: "quinto-adultos",
-    nombre: "Quinto-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Quinto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de primaria/bachillerato.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "sexto-adultos",
-    nombre: "Sexto-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Sexto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "septimo-adultos",
-    nombre: "Séptimo-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Séptimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "octavo-adultos",
-    nombre: "Octavo-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Octavo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "noveno-adultos",
-    nombre: "Noveno-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Noveno dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "decimo-adultos",
-    nombre: "Décimo-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Décimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "once-adultos",
-    nombre: "Once-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "El último ciclo del proceso para adultos.",
-    descripcion: "Once dentro del programa de Bachillerato por Ciclos CLEI, el último paso antes de obtener el título de bachiller.",
-    fotos: ["assets/clei-info.jpg"]
-  }
-];
-
-// Los 6 énfasis del Bachillerato Técnico (Décimo y Once).
-const ENFASIS_TECNICOS = [
-  { nombre: "Enfermería", descripcion: "Formación técnica en cuidado básico de la salud." },
-  { nombre: "Servicios Farmacéuticos", descripcion: "Manejo y dispensación de medicamentos." },
-  { nombre: "Sistemas", descripcion: "Fundamentos de programación y soporte informático." },
-  { nombre: "Trabajo Social", descripcion: "Acompañamiento y desarrollo comunitario." },
-  { nombre: "Educación a la Primera Infancia", descripcion: "Pedagogía orientada a los primeros años de vida." },
-  { nombre: "Seguridad y Salud en el Trabajo", descripcion: "Prevención de riesgos en entornos laborales." }
-];
-
-function obtenerNivel(id) {
-  return NIVELES.find(n => n.id === id);
+function obtenerParametro(nombre) {
+  return new URLSearchParams(window.location.search).get(nombre);
 }
 
-function obtenerGrado(id) {
-  return GRADOS.find(g => g.id === id);
+function crearElemento(html) {
+  const envoltorio = document.createElement("div");
+  envoltorio.innerHTML = html.trim();
+  return envoltorio.firstElementChild;
 }
 
-function gradosPorNivel(nivelId) {
-  return GRADOS.filter(g => g.nivelId === nivelId);
+// Un pixel 100% transparente — se usa como "src" de una foto que
+// todavía no se ha subido, para que el fondo/marcador de abajo se
+// siga viendo hasta que alguien suba la foto real desde el modo edición.
+const PIXEL_TRANSPARENTE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
+
+// ---------- INICIO (index.html) ----------
+
+function initInicio() {
+  const cont = $("#niveles-cont");
+  NIVELES.forEach((nivel) => {
+    const tarjeta = crearElemento(`
+      <a class="tarjeta-nivel" href="nivel.html?nivel=${nivel.id}">
+        <div class="tarjeta-nivel-imagen-cont">
+          <div class="tarjeta-nivel-imagen-marcador-texto">
+            <span>${nivel.nombre}</span>
+            <span class="lema">${nivel.lema}</span>
+          </div>
+          <img class="tarjeta-nivel-imagen" data-campo="nivel_img_${nivel.id}" data-sin-envoltorio src="${nivel.imagen || PIXEL_TRANSPARENTE}" alt="${nivel.nombre} — ${nivel.lema}">
+        </div>
+        <div class="tarjeta-nivel-pie">
+          <span class="ir">Ver grados de ${nivel.nombre} ${ICONOS.flecha()}</span>
+        </div>
+      </a>
+    `);
+    cont.appendChild(tarjeta);
+  });
+
+  renderCaminoCompleto($("#camino-cont"));
+}
+
+function renderCaminoCompleto(cont) {
+  if (!cont) return;
+  const n = GRADOS.length;
+  const ancho = 1120;
+  const alto = 92;
+  const margen = 44;
+  const paso = (ancho - margen * 2) / (n - 1);
+  const y = 46;
+
+  let puntos = "";
+  let linea = `M ${margen} ${y} `;
+  GRADOS.forEach((grado, i) => {
+    const x = margen + paso * i;
+    if (i > 0) linea += `L ${x} ${y} `;
+    puntos += `
+      <g>
+        <circle class="camino-punto" cx="${x}" cy="${y}" r="7"></circle>
+        <text x="${x}" y="${y + 26}" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10.5" fill="#5C6478">${grado.nombre}</text>
+      </g>`;
+  });
+
+  cont.innerHTML = `
+    <svg class="camino-svg" viewBox="0 0 ${ancho} ${alto}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Camino de grados desde Transición hasta Once">
+      <path class="camino-linea" d="${linea}"></path>
+      ${puntos}
+    </svg>`;
+}
+
+// ---------- NIVEL (nivel.html) ----------
+
+function initNivel() {
+  const nivelId = obtenerParametro("nivel");
+  const nivel = obtenerNivel(nivelId) || NIVELES[0];
+  const grados = gradosPorNivel(nivel.id);
+
+  const contBanner = $(".banner-cont");
+  contBanner.innerHTML = `
+    <div class="hero-nivel-marcador">
+      <span>${nivel.nombre}</span>
+      <span class="lema">${nivel.lema}</span>
+    </div>
+    <img class="hero-nivel-foto-editable" id="nivel-banner-img" data-campo="nivel_banner_${nivel.id}" data-sin-envoltorio src="${nivel.banner || PIXEL_TRANSPARENTE}" alt="Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José">
+  `;
+
+  $("#nivel-pastilla").textContent = nivel.nombre;
+  if (nivel.color === "amarillo") $("#nivel-pastilla").classList.add("amarilla");
+  $("#nivel-titulo").textContent = `Grados de ${nivel.nombre}`;
+  $("#nivel-descripcion").textContent = nivel.descripcion;
+  document.title = `${nivel.nombre} — Registro Real Colegio San José`;
+  const miga = $("#nivel-titulo-miga");
+  if (miga) miga.textContent = nivel.nombre;
+
+  const cont = $("#grados-cont");
+  grados.forEach((grado) => {
+    const tarjeta = crearElemento(`
+      <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
+        <h3>${grado.nombre}</h3>
+        <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
+      </a>
+    `);
+    cont.appendChild(tarjeta);
+  });
+
+  if (nivel.id === "bachillerato-tecnico") {
+    const panel = $(".panel-grados");
+    const seccionEnfasis = crearElemento(`
+      <div class="seccion-enfasis">
+        <h3>Énfasis que ofrece el Bachillerato Técnico</h3>
+        <p class="subtexto">En Décimo y Once, cada estudiante elige uno de estos seis énfasis técnicos.</p>
+        <div class="enfasis-grilla"></div>
+      </div>
+    `);
+    const grillaEnfasis = seccionEnfasis.querySelector(".enfasis-grilla");
+    ENFASIS_TECNICOS.forEach((enfasis) => {
+      grillaEnfasis.appendChild(crearElemento(`
+        <div class="tarjeta-enfasis">
+          <h4>${enfasis.nombre}</h4>
+          <p>${enfasis.descripcion}</p>
+        </div>
+      `));
+    });
+    panel.appendChild(seccionEnfasis);
+  }
+}
+
+// ---------- GRADO (grado.html) ----------
+
+function initGrado() {
+  const gradoId = obtenerParametro("grado");
+  const grado = obtenerGrado(gradoId) || GRADOS[0];
+  const nivel = obtenerNivel(grado.nivelId);
+
+  document.title = `${grado.nombre} — Registro Real Colegio San José`;
+
+  $("#miga-nivel").textContent = nivel.nombre;
+  $("#miga-nivel").href = `nivel.html?nivel=${nivel.id}`;
+  $("#grado-pastilla-nivel").textContent = nivel.nombre;
+  $("#grado-titulo").textContent = grado.nombre;
+  $("#grado-descripcion-corta").textContent = grado.descripcionCorta;
+  $("#grado-descripcion").textContent = grado.descripcion;
+
+  $all(".boton-inscribirse").forEach(b => b.href = `inscripcion.html?grado=${grado.id}`);
+
+  // Galería con fotos editables (si no hay foto todavía, se ve el
+  // patrón a rayas — en cuanto se suba una desde el modo edición,
+  // esta la reemplaza automáticamente).
+  const galeria = $("#galeria-cont");
+  if (grado.fotos.length === 1) galeria.classList.add("galeria-una-foto");
+  grado.fotos.forEach((foto, i) => {
+    const clase = foto ? "foto-real foto-con-borde" : "foto-placeholder foto-real";
+    galeria.appendChild(crearElemento(
+      `<img class="${clase}" data-campo="grado_foto${i + 1}_${grado.id}" src="${foto || PIXEL_TRANSPARENTE}" alt="Foto del salón de ${grado.nombre}">`
+    ));
+  });
+
+  // Navegación al grado anterior / siguiente dentro del mismo recorrido
+  const idx = GRADOS.findIndex(g => g.id === grado.id);
+  const anterior = GRADOS[idx - 1];
+  const siguiente = GRADOS[idx + 1];
+  const nav = $("#grado-nav");
+  nav.innerHTML = `
+    ${anterior ? `<a class="boton boton-fantasma" href="grado.html?grado=${anterior.id}">${ICONOS.flecha()} ${anterior.nombre}</a>` : `<span></span>`}
+    ${siguiente ? `<a class="boton boton-fantasma" href="grado.html?grado=${siguiente.id}">${siguiente.nombre} <span style="display:inline-block; transform:rotate(180deg);">${ICONOS.flecha()}</span></a>` : `<span></span>`}
+  `;
+}
+
+// ---------- INSCRIPCIÓN (inscripcion.html) ----------
+
+const TAMANO_MAXIMO_ARCHIVO = 8 * 1024 * 1024; // 8 MB por foto (límite de seguridad, tras comprimir casi nunca se llega aquí)
+const LADO_MAXIMO_FOTO = 2000; // px — conserva el texto y números legibles en documentos, aun impresos
+const CALIDAD_COMPRESION = 0.85;
+const WHATSAPP_NUMERO = "573218114521"; // primer número de contacto, con indicativo de Colombia
+
+// Redibuja la foto en un lienzo más chico y la exporta como JPEG liviano.
+// Así lo que llega a Drive pesa mucho menos que la foto original del celular.
+function comprimirImagen(archivo, ladoMaximo = LADO_MAXIMO_FOTO, calidad = CALIDAD_COMPRESION) {
+  return new Promise((resolve, reject) => {
+    const lector = new FileReader();
+    lector.onload = () => {
+      const imagen = new Image();
+      imagen.onload = () => {
+        let { width, height } = imagen;
+        if (width > ladoMaximo || height > ladoMaximo) {
+          if (width > height) {
+            height = Math.round(height * (ladoMaximo / width));
+            width = ladoMaximo;
+          } else {
+            width = Math.round(width * (ladoMaximo / height));
+            height = ladoMaximo;
+          }
+        }
+        const lienzo = document.createElement("canvas");
+        lienzo.width = width;
+        lienzo.height = height;
+        lienzo.getContext("2d").drawImage(imagen, 0, 0, width, height);
+        lienzo.toBlob(
+          (blob) => blob ? resolve(blob) : reject(new Error("No se pudo comprimir la imagen.")),
+          "image/jpeg",
+          calidad
+        );
+      };
+      imagen.onerror = () => reject(new Error("No se pudo procesar la imagen para comprimirla."));
+      imagen.src = lector.result;
+    };
+    lector.onerror = () => reject(new Error("No se pudo leer el archivo."));
+    lector.readAsDataURL(archivo);
+  });
+}
+
+async function archivoABase64(input) {
+  const archivo = input.files && input.files[0];
+  if (!archivo) return null;
+
+  let blobFinal = archivo;
+  if (archivo.type && archivo.type.startsWith("image/") && archivo.type !== "image/gif") {
+    try {
+      blobFinal = await comprimirImagen(archivo);
+    } catch (error) {
+      blobFinal = archivo; // si la compresión falla por algo, se sube la foto tal cual
+    }
+  }
+
+  if (blobFinal.size > TAMANO_MAXIMO_ARCHIVO) {
+    throw new Error(`La foto "${archivo.name}" sigue pesando mucho. Usa una foto más liviana.`);
+  }
+
+  return new Promise((resolve, reject) => {
+    const lector = new FileReader();
+    lector.onload = () => {
+      const base64 = lector.result.split(",")[1];
+      resolve({
+        nombre: archivo.name.replace(/\.[^.]+$/, "") + ".jpg",
+        tipo: "image/jpeg",
+        datos: base64
+      });
+    };
+    lector.onerror = () => reject(new Error(`No se pudo leer la foto "${archivo.name}".`));
+    lector.readAsDataURL(blobFinal);
+  });
+}
+
+function initInscripcion() {
+  const gradoId = obtenerParametro("grado");
+  const grado = obtenerGrado(gradoId) || GRADOS[0];
+  const nivel = obtenerNivel(grado.nivelId);
+  const esCLEI = grado.nivelId === "bachillerato-adultos";
+  const requiereConstancia = grado.nivelId !== "preescolar" && !esCLEI;
+  $("#insc-miga").textContent = grado.nombre;
+  $("#insc-miga").href = `grado.html?grado=${grado.id}`;
+  $("#insc-titulo").textContent = `Inscripción — ${grado.nombre}`;
+  $("#insc-grado-oculto").value = grado.nombre;
+
+  const grupoConstancia = $("#grupo-constancia");
+  const campoConstancia = $("#doc-constancia");
+  if (!requiereConstancia) {
+    grupoConstancia.style.display = "none";
+  } else {
+    campoConstancia.required = true;
+  }
+
+  if (esCLEI) {
+    $("#grupo-clei").style.display = "block";
+    $("#grupo-documento-identidad").style.display = "none";
+    $("#grupo-pago").style.display = "none";
+    $("#doc-frente").required = false;
+    $("#doc-reverso").required = false;
+
+    // Para este programa el acudiente solo aplica si el estudiante es
+    // menor de edad — se deja de pedir como obligatorio.
+    $("#acudiente-subtexto").textContent = "Solo diligencia esto si el estudiante es menor de edad.";
+    ["#acu-nombre", "#acu-tipo-doc", "#acu-documento", "#acu-telefono"].forEach((sel) => {
+      $(sel).required = false;
+    });
+  }
+
+  const form = $("#form-inscripcion");
+  const estado = $("#mensaje-estado");
+  const botonEnviar = $("#boton-enviar");
+
+  form.addEventListener("submit", async (evento) => {
+    evento.preventDefault();
+
+    if (SHEETS_WEB_APP_URL.includes("PEGA_AQUI")) {
+      mostrarEstado("Falta conectar este formulario con Google Sheets. Revisa LEEME.md.", "error");
+      return;
+    }
+
+    botonEnviar.disabled = true;
+    botonEnviar.textContent = "Optimizando fotos...";
+    ocultarEstado();
+
+    try {
+      const [documentoFrente, documentoReverso, constancia, comprobante] = await Promise.all([
+        archivoABase64($("#doc-frente")),
+        archivoABase64($("#doc-reverso")),
+        archivoABase64(campoConstancia),
+        archivoABase64($("#doc-comprobante"))
+      ]);
+
+      const datosFormulario = new FormData(form);
+      const carga = {
+        grado: datosFormulario.get("grado"),
+        estudiante_nombre: datosFormulario.get("estudiante_nombre"),
+        estudiante_tipo_documento: datosFormulario.get("estudiante_tipo_documento"),
+        estudiante_documento: datosFormulario.get("estudiante_documento"),
+        acudiente_nombre: datosFormulario.get("acudiente_nombre"),
+        acudiente_tipo_documento: datosFormulario.get("acudiente_tipo_documento"),
+        acudiente_documento: datosFormulario.get("acudiente_documento"),
+        acudiente_telefono: datosFormulario.get("acudiente_telefono"),
+        archivo_documento_frente: documentoFrente,
+        archivo_documento_reverso: documentoReverso,
+        archivo_constancia: constancia,
+        archivo_comprobante: comprobante
+      };
+
+      botonEnviar.textContent = "Enviando...";
+
+      await fetch(SHEETS_WEB_APP_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(carga)
+      });
+
+      // En modo "no-cors" el navegador no deja leer la respuesta de Google,
+      // así que si el envío no lanzó un error de red, lo damos por enviado.
+      form.style.display = "none";
+      const mensajeWa = encodeURIComponent(
+        `Hola, envío el comprobante de pago de la inscripción de ${carga.estudiante_nombre} — grado ${grado.nombre}.`
+      );
+      $("#boton-whatsapp").href = `https://wa.me/${WHATSAPP_NUMERO}?text=${mensajeWa}`;
+      $("#pantalla-exito").style.display = "block";
+    } catch (error) {
+      mostrarEstado(error.message || "No se pudo enviar la inscripción. Verifica tu conexión e inténtalo de nuevo.", "error");
+      botonEnviar.disabled = false;
+      botonEnviar.textContent = "Enviar inscripción";
+    }
+  });
+
+  function mostrarEstado(texto, tipo) {
+    estado.textContent = texto;
+    estado.className = `mensaje-estado visible ${tipo}`;
+  }
+
+  function ocultarEstado() {
+    estado.className = "mensaje-estado";
+  }
 }
