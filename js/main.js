@@ -32,7 +32,7 @@ function initInicio() {
             <span>${nivel.nombre}</span>
             <span class="lema">${nivel.lema}</span>
           </div>
-          <img class="tarjeta-nivel-imagen" data-campo="nivel_img_${nivel.id}" src="${nivel.imagen || PIXEL_TRANSPARENTE}" alt="${nivel.nombre} — ${nivel.lema}">
+          <img class="tarjeta-nivel-imagen" data-campo="nivel_img_${nivel.id}" data-sin-envoltorio src="${nivel.imagen || PIXEL_TRANSPARENTE}" alt="${nivel.nombre} — ${nivel.lema}">
         </div>
         <div class="tarjeta-nivel-pie">
           <span class="ir">Ver grados de ${nivel.nombre} ${ICONOS.flecha()}</span>
@@ -86,7 +86,7 @@ function initNivel() {
       <span>${nivel.nombre}</span>
       <span class="lema">${nivel.lema}</span>
     </div>
-    <img class="hero-nivel-foto-editable" id="nivel-banner-img" data-campo="nivel_banner_${nivel.id}" src="${nivel.banner || PIXEL_TRANSPARENTE}" alt="Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José">
+    <img class="hero-nivel-foto-editable" id="nivel-banner-img" data-campo="nivel_banner_${nivel.id}" data-sin-envoltorio src="${nivel.banner || PIXEL_TRANSPARENTE}" alt="Inscripciones abiertas — ${nivel.nombre}, Real Colegio San José">
   `;
 
   $("#nivel-pastilla").textContent = nivel.nombre;
@@ -101,7 +101,7 @@ function initNivel() {
   grados.forEach((grado) => {
     const tarjeta = crearElemento(`
       <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
-        <img class="tarjeta-grado-foto" data-campo="grado_mini_${grado.id}" src="${PIXEL_TRANSPARENTE}" alt="">
+        <img class="tarjeta-grado-foto" data-campo="grado_mini_${grado.id}" data-sin-envoltorio src="${PIXEL_TRANSPARENTE}" alt="">
         <div class="tarjeta-grado-velo"></div>
         <span class="edad">${grado.edad}</span>
         <h3>${grado.nombre}</h3>
