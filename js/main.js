@@ -155,8 +155,9 @@ function initGrado() {
   // esta la reemplaza automáticamente).
   const galeria = $("#galeria-cont");
   grado.fotos.forEach((foto, i) => {
+    const clase = foto ? "foto-real foto-con-borde" : "foto-placeholder foto-real";
     galeria.appendChild(crearElemento(
-      `<img class="foto-placeholder foto-real" data-campo="grado_foto${i + 1}_${grado.id}" src="${foto || PIXEL_TRANSPARENTE}" alt="Foto del salón de ${grado.nombre}">`
+      `<img class="${clase}" data-campo="grado_foto${i + 1}_${grado.id}" src="${foto || PIXEL_TRANSPARENTE}" alt="Foto del salón de ${grado.nombre}">`
     ));
   });
 

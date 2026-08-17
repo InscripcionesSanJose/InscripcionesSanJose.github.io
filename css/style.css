@@ -567,7 +567,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 10px;
 }
 
-.galeria .foto-placeholder:first-child { grid-row: span 2; }
+.galeria .foto-placeholder:first-child,
+.galeria .foto-con-borde:first-child { grid-row: span 2; }
 
 .foto-placeholder .contenido-vacio {
   display: flex;
@@ -1257,3 +1258,10 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
   color: var(--azul);
 }
 .clei-beneficios li svg { flex-shrink: 0; color: var(--azul-medio); }
+
+/* Foto real (no placeholder) dentro de la galería de un grado —
+   borde azul con esquinas bien redondeadas ("punta roma"). */
+.foto-con-borde {
+  border: 3px solid var(--azul);
+  border-radius: 22px;
+}
