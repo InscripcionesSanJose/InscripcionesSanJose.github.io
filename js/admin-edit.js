@@ -47,7 +47,7 @@ function iniciarModoEdicion() {
   refImagenes.get().then((coleccion) => {
     coleccion.forEach((doc) => {
       const el = document.querySelector(`[data-campo="${doc.id}"]`);
-      if (el && el.tagName === "IMG") el.src = doc.data().datos;
+      if (el && el.tagName === "IMG") aplicarImagenAElemento(el, doc.data().datos);
     });
   }).catch((error) => console.error("No se pudieron cargar las fotos guardadas:", error));
 
@@ -59,6 +59,18 @@ function iniciarModoEdicion() {
       activarLapiceros(refDocumento, refImagenes);
     }
   });
+}
+
+// Pone la foto real en el elemento y, si tenía el marco punteado de
+// "próximamente" (foto-placeholder), lo cambia por el borde azul
+// (foto-con-borde) — así se ve igual sin importar si la foto ya venía
+// puesta desde el principio o si se subió después desde el modo edición.
+function aplicarImagenAElemento(el, url) {
+  el.src = url;
+  if (el.classList.contains("foto-placeholder")) {
+    el.classList.remove("foto-placeholder");
+    el.classList.add("foto-con-borde");
+  }
 }
 
 function aplicarTextos(datos) {
@@ -211,7 +223,7 @@ function abrirEditorImagen(el, refImagenes) {
     try {
       const dataUrl = await comprimirImagenAdmin(archivo);
       await refImagenes.doc(campo).set({ datos: dataUrl });
-      el.src = dataUrl;
+      aplicarImagenAElemento(el, dataUrl);
       cerrarOverlayModal(overlay);
     } catch (error) {
       mensaje.textContent = "No se pudo guardar: " + error.message;
