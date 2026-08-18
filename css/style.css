@@ -1295,3 +1295,72 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
   z-index: 0;
 }
 .tarjeta-grado-decoracion svg { width: 100%; height: 100%; }
+
+/* ============================================================
+   BOTONES CON FORMA DE CRAYÓN — Preescolar y Primaria
+   ============================================================ */
+
+.grados-grilla-crayones {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.tarjeta-grado-crayon {
+  display: flex;
+  align-items: stretch;
+  height: 88px;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.tarjeta-grado-crayon:hover { transform: translateX(8px); }
+
+.crayon-punta {
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-top: 44px solid transparent;
+  border-bottom: 44px solid transparent;
+  border-right: 32px solid var(--color-crayon);
+  filter: brightness(0.82);
+}
+
+.crayon-cuerpo {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: var(--color-crayon);
+  border-radius: 0 44px 44px 0;
+  box-shadow: var(--sombra);
+  overflow: hidden;
+  padding-left: 46px;
+}
+
+.crayon-banda {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  background: rgba(0, 0, 0, 0.16);
+}
+.crayon-banda.b1 { left: 16px; }
+.crayon-banda.b2 { left: 30px; }
+
+.crayon-texto { position: relative; }
+.crayon-texto h3 {
+  font-size: 1.25rem;
+  color: var(--blanco);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  margin-bottom: 2px;
+}
+.crayon-texto .ver-mas {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--blanco);
+  opacity: 0.92;
+}
+.crayon-texto .ver-mas svg { transition: transform 0.15s ease; }
+.tarjeta-grado-crayon:hover .ver-mas svg { transform: translateX(4px); }

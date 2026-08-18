@@ -20,6 +20,10 @@ function crearElemento(html) {
 // siga viendo hasta que alguien suba la foto real desde el modo edición.
 const PIXEL_TRANSPARENTE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==";
 
+// Paleta de colores para los botones con forma de crayón
+// (Preescolar y Primaria) — se van repitiendo en este orden.
+const PALETA_CRAYONES = ["#F2994A", "#2FB6B2", "#EB5757", "#F2C94C", "#5B8DEF", "#6FCF97"];
+
 // ---------- INICIO (index.html) ----------
 
 function initInicio() {
@@ -98,17 +102,40 @@ function initNivel() {
   if (miga) miga.textContent = nivel.nombre;
 
   const cont = $("#grados-cont");
-  grados.forEach((grado) => {
-    const decoracion = DECORACION_NIVEL[nivel.id] || "";
-    const tarjeta = crearElemento(`
-      <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
-        <div class="tarjeta-grado-decoracion">${decoracion}</div>
-        <h3>${grado.nombre}</h3>
-        <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
-      </a>
-    `);
-    cont.appendChild(tarjeta);
-  });
+  const esNivelCrayon = nivel.id === "preescolar" || nivel.id === "primaria";
+
+  if (esNivelCrayon) {
+    cont.classList.add("grados-grilla-crayones");
+    grados.forEach((grado, i) => {
+      const color = PALETA_CRAYONES[i % PALETA_CRAYONES.length];
+      const tarjeta = crearElemento(`
+        <a class="tarjeta-grado-crayon" href="grado.html?grado=${grado.id}" style="--color-crayon:${color};">
+          <span class="crayon-punta"></span>
+          <span class="crayon-cuerpo">
+            <span class="crayon-banda b1"></span>
+            <span class="crayon-banda b2"></span>
+            <span class="crayon-texto">
+              <h3>${grado.nombre}</h3>
+              <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
+            </span>
+          </span>
+        </a>
+      `);
+      cont.appendChild(tarjeta);
+    });
+  } else {
+    grados.forEach((grado) => {
+      const decoracion = DECORACION_NIVEL[nivel.id] || "";
+      const tarjeta = crearElemento(`
+        <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
+          <div class="tarjeta-grado-decoracion">${decoracion}</div>
+          <h3>${grado.nombre}</h3>
+          <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
+        </a>
+      `);
+      cont.appendChild(tarjeta);
+    });
+  }
 
   if (nivel.id === "bachillerato-tecnico") {
     const panel = $(".panel-grados");
