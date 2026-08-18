@@ -99,8 +99,10 @@ function initNivel() {
 
   const cont = $("#grados-cont");
   grados.forEach((grado) => {
+    const decoracion = DECORACION_NIVEL[nivel.id] || "";
     const tarjeta = crearElemento(`
       <a class="tarjeta-grado" href="grado.html?grado=${grado.id}">
+        <div class="tarjeta-grado-decoracion">${decoracion}</div>
         <h3>${grado.nombre}</h3>
         <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
       </a>
