@@ -140,9 +140,7 @@ function initNivel() {
       const color = PALETA_REGLAS[i % PALETA_REGLAS.length];
       const tarjeta = crearElemento(`
         <a class="tarjeta-grado-regla" href="grado.html?grado=${grado.id}" style="--color-regla:${color};">
-          <span class="regla-marcas">
-            <span class="regla-marca"></span><span class="regla-marca"></span><span class="regla-marca"></span><span class="regla-marca"></span><span class="regla-marca"></span>
-          </span>
+          <span class="regla-marcas"></span>
           <span class="crayon-texto">
             <h3>${grado.nombre}</h3>
             <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>

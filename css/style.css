@@ -1372,12 +1372,13 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 .tarjeta-grado-regla {
   position: relative;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
   height: 84px;
   background: var(--color-regla);
   background-image: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(0,0,0,0.06));
   border-radius: 14px;
-  padding-left: 96px;
+  padding: 8px 24px 0;
   overflow: hidden;
   box-shadow: var(--sombra);
   transition: transform 0.15s ease;
@@ -1386,15 +1387,17 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 
 .regla-marcas {
   position: absolute;
-  left: 18px;
-  top: 16px;
-  bottom: 16px;
-  width: 60px;
-  display: flex;
-  align-items: stretch;
-  justify-content: space-between;
-  gap: 8px;
-  padding-left: 10px;
-  border-left: 2px solid rgba(0, 0, 0, 0.42);
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.4);
+  background-image:
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.42) 0px, rgba(0,0,0,0.42) 2px, transparent 2px, transparent 16px),
+    repeating-linear-gradient(90deg, rgba(0,0,0,0.28) 0px, rgba(0,0,0,0.28) 2px, transparent 2px, transparent 48px);
+  background-size: 100% 60%, 100% 100%;
+  background-position: bottom, bottom;
+  background-repeat: repeat-x, repeat-x;
 }
-.regla-marca { width: 2px; background: rgba(0, 0, 0, 0.42); }
+
+.tarjeta-grado-regla .crayon-texto { margin-top: 14px; }
