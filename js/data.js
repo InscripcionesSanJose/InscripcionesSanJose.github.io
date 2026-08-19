@@ -51,7 +51,7 @@ const NIVELES = [
     id: "bachillerato-adultos",
     nombre: "Bachillerato por Ciclos CLEI",
     lema: "Educación flexible para adultos",
-    descripcion: "De Quinto a Once, un programa pensado para personas adultas que quieren terminar el bachillerato, con requisitos de inscripción propios.",
+    descripcion: "6 ciclos (de Primero a Once), cada uno con una duración de 10 meses, pensado para personas adultas que quieren terminar el bachillerato, con requisitos de inscripción propios.",
     color: "azulOscuro",
     // Sin imagen propia todavía.
     imagen: null,
@@ -172,66 +172,57 @@ const GRADOS = [
     fotos: [null]
   },
   {
-    id: "quinto-adultos",
-    nombre: "Quinto-A de adultos",
+    id: "ciclo1-adultos",
+    nombre: "Ciclo 1 de adultos",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Quinto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de primaria/bachillerato.",
+    descripcionCorta: "Equivale a los grados Primero, Segundo y Tercero. Dura 10 meses.",
+    descripcion: "El Ciclo 1 del programa de Bachillerato por Ciclos CLEI equivale a los grados Primero, Segundo y Tercero de primaria. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   },
   {
-    id: "sexto-adultos",
-    nombre: "Sexto-A de adultos",
+    id: "ciclo2-adultos",
+    nombre: "Ciclo 2 de adultos",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Sexto dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    descripcionCorta: "Equivale a los grados Cuarto y Quinto. Dura 10 meses.",
+    descripcion: "El Ciclo 2 del programa de Bachillerato por Ciclos CLEI equivale a los grados Cuarto y Quinto de primaria. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   },
   {
-    id: "septimo-adultos",
-    nombre: "Séptimo-A de adultos",
+    id: "ciclo3-adultos",
+    nombre: "Ciclo 3 de adultos",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Séptimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    descripcionCorta: "Equivale a los grados Sexto y Séptimo. Dura 10 meses.",
+    descripcion: "El Ciclo 3 del programa de Bachillerato por Ciclos CLEI equivale a los grados Sexto y Séptimo de bachillerato. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   },
   {
-    id: "octavo-adultos",
-    nombre: "Octavo-A de adultos",
+    id: "ciclo4-adultos",
+    nombre: "Ciclo 4 de adultos",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Octavo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    descripcionCorta: "Equivale a los grados Octavo y Noveno. Dura 10 meses.",
+    descripcion: "El Ciclo 4 del programa de Bachillerato por Ciclos CLEI equivale a los grados Octavo y Noveno de bachillerato. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   },
   {
-    id: "noveno-adultos",
-    nombre: "Noveno-A de adultos",
+    id: "ciclo1em-adultos",
+    nombre: "Ciclo 1 E.M de adultos",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Noveno dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
+    descripcionCorta: "Equivale al grado Décimo. Dura 10 meses.",
+    descripcion: "El Ciclo 1 de Educación Media (E.M) del programa de Bachillerato por Ciclos CLEI equivale al grado Décimo. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   },
   {
-    id: "decimo-adultos",
-    nombre: "Décimo-A de adultos",
+    id: "ciclo2em-adultos",
+    nombre: "Ciclo 2 E.M de adultos",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
-    descripcionCorta: "Bachillerato por Ciclos CLEI para adultos.",
-    descripcion: "Décimo dentro del programa de Bachillerato por Ciclos CLEI, pensado para personas adultas que retoman sus estudios de secundaria.",
-    fotos: ["assets/clei-info.jpg"]
-  },
-  {
-    id: "once-adultos",
-    nombre: "Once-A de adultos",
-    nivelId: "bachillerato-adultos",
-    edad: "Población adulta",
-    descripcionCorta: "El último ciclo del proceso para adultos.",
-    descripcion: "Once dentro del programa de Bachillerato por Ciclos CLEI, el último paso antes de obtener el título de bachiller.",
+    descripcionCorta: "Equivale al grado Once, el último ciclo antes del título.",
+    descripcion: "El Ciclo 2 de Educación Media (E.M) del programa de Bachillerato por Ciclos CLEI equivale al grado Once, el último ciclo antes de obtener el título de bachiller. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   }
 ];
