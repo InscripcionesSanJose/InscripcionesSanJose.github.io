@@ -116,8 +116,9 @@ function doPost(e) {
 
     var encabezados = ["Fecha", "Estudiante - Nombre", "Estudiante - Tipo de documento",
       "Estudiante - Documento", "Acudiente - Nombre", "Acudiente - Tipo de documento",
-      "Acudiente - Documento", "Acudiente - Teléfono", "Documento - Frente",
-      "Documento - Reverso", "Constancia de comportamiento", "Comprobante de pago"];
+      "Acudiente - Documento", "Acudiente - Teléfono", "Estudiante - Teléfono",
+      "Documento - Frente", "Documento - Reverso", "Constancia de comportamiento",
+      "Comprobante de pago", "Modalidad"];
 
     if (!hoja) {
       hoja = libro.insertSheet(grado);
@@ -142,15 +143,17 @@ function doPost(e) {
       datos.acudiente_tipo_documento,
       datos.acudiente_documento,
       datos.acudiente_telefono,
+      datos.estudiante_telefono,
       urlFrente,
       urlReverso,
       urlConstancia,
-      textoComprobante
+      textoComprobante,
+      datos.modalidad
     ]);
 
     if (!urlComprobante) {
       var filaNueva = hoja.getLastRow();
-      hoja.getRange(filaNueva, 12)
+      hoja.getRange(filaNueva, 13)
         .setBackground("#F4C7C3")
         .setFontColor("#990000")
         .setFontWeight("bold");

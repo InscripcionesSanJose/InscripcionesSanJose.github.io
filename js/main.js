@@ -306,6 +306,7 @@ function initInscripcion() {
   const grado = obtenerGrado(gradoId) || GRADOS[0];
   const nivel = obtenerNivel(grado.nivelId);
   const esCLEI = grado.nivelId === "bachillerato-adultos";
+  const esTecnico = grado.nivelId === "bachillerato-tecnico";
   const requiereConstancia = grado.nivelId !== "preescolar" && !esCLEI;
   $("#insc-miga").textContent = grado.nombre;
   $("#insc-miga").href = `grado.html?grado=${grado.id}`;
@@ -318,6 +319,11 @@ function initInscripcion() {
     grupoConstancia.style.display = "none";
   } else {
     campoConstancia.required = true;
+  }
+
+  // Bachillerato Técnico y CLEI tienen modalidad presencial o virtual.
+  if (esCLEI || esTecnico) {
+    $("#grupo-modalidad").style.display = "block";
   }
 
   if (esCLEI) {
@@ -368,6 +374,7 @@ function initInscripcion() {
         estudiante_tipo_documento: datosFormulario.get("estudiante_tipo_documento"),
         estudiante_documento: datosFormulario.get("estudiante_documento"),
         estudiante_telefono: datosFormulario.get("estudiante_telefono"),
+        modalidad: (esCLEI || esTecnico) ? datosFormulario.get("modalidad") : "",
         acudiente_nombre: datosFormulario.get("acudiente_nombre"),
         acudiente_tipo_documento: datosFormulario.get("acudiente_tipo_documento"),
         acudiente_documento: datosFormulario.get("acudiente_documento"),

@@ -1401,3 +1401,20 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 }
 
 .tarjeta-grado-regla .crayon-texto { margin-top: 14px; }
+
+/* Opciones de radio (por ejemplo, modalidad presencial/virtual) */
+.opciones-radio {
+  display: flex;
+  gap: 20px;
+  margin-top: 4px;
+}
+.opcion-radio {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--texto);
+  cursor: pointer;
+}
+.opcion-radio input { width: 17px; height: 17px; accent-color: var(--azul-medio); cursor: pointer; }
