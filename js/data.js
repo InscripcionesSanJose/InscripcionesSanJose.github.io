@@ -173,7 +173,7 @@ const GRADOS = [
   },
   {
     id: "ciclo1-adultos",
-    nombre: "Ciclo 1 de adultos",
+    nombre: "Ciclo 1",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale a los grados Primero, Segundo y Tercero. Dura 10 meses.",
@@ -182,7 +182,7 @@ const GRADOS = [
   },
   {
     id: "ciclo2-adultos",
-    nombre: "Ciclo 2 de adultos",
+    nombre: "Ciclo 2",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale a los grados Cuarto y Quinto. Dura 10 meses.",
@@ -191,7 +191,7 @@ const GRADOS = [
   },
   {
     id: "ciclo3-adultos",
-    nombre: "Ciclo 3 de adultos",
+    nombre: "Ciclo 3",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale a los grados Sexto y Séptimo. Dura 10 meses.",
@@ -200,7 +200,7 @@ const GRADOS = [
   },
   {
     id: "ciclo4-adultos",
-    nombre: "Ciclo 4 de adultos",
+    nombre: "Ciclo 4",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale a los grados Octavo y Noveno. Dura 10 meses.",
@@ -209,7 +209,7 @@ const GRADOS = [
   },
   {
     id: "ciclo1em-adultos",
-    nombre: "Ciclo 1 E.M de adultos",
+    nombre: "Ciclo 1 E.M",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale al grado Décimo. Dura 10 meses.",
@@ -218,7 +218,7 @@ const GRADOS = [
   },
   {
     id: "ciclo2em-adultos",
-    nombre: "Ciclo 2 E.M de adultos",
+    nombre: "Ciclo 2 E.M",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale al grado Once, el último ciclo antes del título.",
