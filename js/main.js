@@ -24,6 +24,14 @@ const PIXEL_TRANSPARENTE = "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALA
 // (Preescolar y Primaria) — se van repitiendo en este orden.
 const PALETA_CRAYONES = ["#F2994A", "#2FB6B2", "#EB5757", "#F2C94C", "#5B8DEF", "#6FCF97"];
 
+// Paleta neutra y profesional para los botones con forma de
+// lapicero (Bachillerato Técnico y CLEI).
+const PALETA_LAPICEROS = ["#5C6478", "#495166", "#6B7A99", "#3D4459"];
+
+// Paleta color mostaza/madera para los botones con forma de
+// regla (Bachillerato).
+const PALETA_REGLAS = ["#D9A441", "#C68F2E", "#E0AC54", "#B8862A"];
+
 // ---------- INICIO (index.html) ----------
 
 function initInicio() {
@@ -103,11 +111,14 @@ function initNivel() {
 
   const cont = $("#grados-cont");
   const esNivelCrayon = nivel.id === "preescolar" || nivel.id === "primaria";
+  const esNivelLapiz = nivel.id === "bachillerato-tecnico" || nivel.id === "bachillerato-adultos";
+  const esNivelRegla = nivel.id === "bachillerato";
 
-  if (esNivelCrayon) {
+  if (esNivelCrayon || esNivelLapiz) {
+    const paleta = esNivelCrayon ? PALETA_CRAYONES : PALETA_LAPICEROS;
     cont.classList.add("grados-grilla-crayones");
     grados.forEach((grado, i) => {
-      const color = PALETA_CRAYONES[i % PALETA_CRAYONES.length];
+      const color = paleta[i % paleta.length];
       const tarjeta = crearElemento(`
         <a class="tarjeta-grado-crayon" href="grado.html?grado=${grado.id}" style="--color-crayon:${color};">
           <span class="crayon-punta"></span>
@@ -118,6 +129,23 @@ function initNivel() {
               <h3>${grado.nombre}</h3>
               <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
             </span>
+          </span>
+        </a>
+      `);
+      cont.appendChild(tarjeta);
+    });
+  } else if (esNivelRegla) {
+    cont.classList.add("grados-grilla-crayones");
+    grados.forEach((grado, i) => {
+      const color = PALETA_REGLAS[i % PALETA_REGLAS.length];
+      const tarjeta = crearElemento(`
+        <a class="tarjeta-grado-regla" href="grado.html?grado=${grado.id}" style="--color-regla:${color};">
+          <span class="regla-marcas">
+            <span class="regla-marca"></span><span class="regla-marca"></span><span class="regla-marca"></span><span class="regla-marca"></span><span class="regla-marca"></span>
+          </span>
+          <span class="crayon-texto">
+            <h3>${grado.nombre}</h3>
+            <span class="ver-mas">Ver grado ${ICONOS.flecha()}</span>
           </span>
         </a>
       `);

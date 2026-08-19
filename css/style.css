@@ -1364,3 +1364,37 @@ fieldset:first-of-type { border-top: none; padding-top: 0; }
 }
 .crayon-texto .ver-mas svg { transition: transform 0.15s ease; }
 .tarjeta-grado-crayon:hover .ver-mas svg { transform: translateX(4px); }
+
+/* ============================================================
+   BOTONES CON FORMA DE REGLA — Bachillerato
+   ============================================================ */
+
+.tarjeta-grado-regla {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 84px;
+  background: var(--color-regla);
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(0,0,0,0.06));
+  border-radius: 14px;
+  padding-left: 96px;
+  overflow: hidden;
+  box-shadow: var(--sombra);
+  transition: transform 0.15s ease;
+}
+.tarjeta-grado-regla:hover { transform: translateX(8px); }
+
+.regla-marcas {
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  bottom: 16px;
+  width: 60px;
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 8px;
+  padding-left: 10px;
+  border-left: 2px solid rgba(0, 0, 0, 0.42);
+}
+.regla-marca { width: 2px; background: rgba(0, 0, 0, 0.42); }
