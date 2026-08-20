@@ -64,6 +64,24 @@ const NIVELES = [
 // aquí poniendo la ruta del archivo, por ejemplo: "assets/salones/primero-1.jpg"
 const GRADOS = [
   {
+    id: "prejardin",
+    nombre: "Prejardín",
+    nivelId: "preescolar",
+    edad: "3 a 4 años",
+    descripcionCorta: "El primer contacto con la vida escolar, jugando.",
+    descripcion: "Prejardín es la puerta de entrada a la vida escolar: un espacio pensado para que los más pequeños se adapten con cariño y confianza, exploren con sus sentidos y comiencen a relacionarse con otros niños a través del juego.",
+    fotos: [null]
+  },
+  {
+    id: "jardin",
+    nombre: "Jardín",
+    nivelId: "preescolar",
+    edad: "4 a 5 años",
+    descripcionCorta: "Un paso más de autonomía, siempre jugando y explorando.",
+    descripcion: "En Jardín los niños ganan más autonomía: refuerzan hábitos, amplían su lenguaje y siguen aprendiendo a través del juego y la exploración, preparando el camino hacia Transición.",
+    fotos: [null]
+  },
+  {
     id: "transicion",
     nombre: "Transición",
     nivelId: "preescolar",
