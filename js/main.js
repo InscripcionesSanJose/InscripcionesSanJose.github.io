@@ -370,6 +370,7 @@ function initInscripcion() {
 
       const datosFormulario = new FormData(form);
       const carga = {
+        formato: esCLEI ? "clei" : (esTecnico ? "tecnico" : "estandar"),
         grado: datosFormulario.get("grado"),
         estudiante_nombre: datosFormulario.get("estudiante_nombre"),
         estudiante_tipo_documento: datosFormulario.get("estudiante_tipo_documento"),
