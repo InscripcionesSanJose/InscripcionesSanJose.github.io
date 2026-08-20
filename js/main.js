@@ -321,9 +321,12 @@ function initInscripcion() {
     campoConstancia.required = true;
   }
 
-  // Bachillerato Técnico y CLEI tienen modalidad presencial o virtual.
+  // Bachillerato Técnico y CLEI piden teléfono directo del estudiante
+  // y preguntan la modalidad (presencial o virtual).
   if (esCLEI || esTecnico) {
     $("#grupo-modalidad").style.display = "block";
+    $("#grupo-est-telefono").style.display = "block";
+    $("#est-telefono").required = true;
   }
 
   if (esCLEI) {
@@ -332,8 +335,6 @@ function initInscripcion() {
     $("#grupo-pago").style.display = "none";
     $("#doc-frente").required = false;
     $("#doc-reverso").required = false;
-    $("#grupo-est-telefono").style.display = "block";
-    $("#est-telefono").required = true;
 
     // Para este programa el acudiente solo aplica si el estudiante es
     // menor de edad — se deja de pedir como obligatorio.
@@ -373,7 +374,7 @@ function initInscripcion() {
         estudiante_nombre: datosFormulario.get("estudiante_nombre"),
         estudiante_tipo_documento: datosFormulario.get("estudiante_tipo_documento"),
         estudiante_documento: datosFormulario.get("estudiante_documento"),
-        estudiante_telefono: datosFormulario.get("estudiante_telefono"),
+        estudiante_telefono: (esCLEI || esTecnico) ? datosFormulario.get("estudiante_telefono") : "",
         modalidad: (esCLEI || esTecnico) ? datosFormulario.get("modalidad") : "",
         acudiente_nombre: datosFormulario.get("acudiente_nombre"),
         acudiente_tipo_documento: datosFormulario.get("acudiente_tipo_documento"),
