@@ -209,20 +209,20 @@ const GRADOS = [
   },
   {
     id: "ciclo1em-adultos",
-    nombre: "Ciclo 1 E.M",
+    nombre: "Ciclo 5",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale al grado Décimo. Dura 10 meses.",
-    descripcion: "El Ciclo 1 de Educación Media (E.M) del programa de Bachillerato por Ciclos CLEI equivale al grado Décimo. Tiene una duración de 10 meses.",
+    descripcion: "El Ciclo 5 (Educación Media) del programa de Bachillerato por Ciclos CLEI equivale al grado Décimo. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   },
   {
     id: "ciclo2em-adultos",
-    nombre: "Ciclo 2 E.M",
+    nombre: "Ciclo 6",
     nivelId: "bachillerato-adultos",
     edad: "Población adulta",
     descripcionCorta: "Equivale al grado Once, el último ciclo antes del título.",
-    descripcion: "El Ciclo 2 de Educación Media (E.M) del programa de Bachillerato por Ciclos CLEI equivale al grado Once, el último ciclo antes de obtener el título de bachiller. Tiene una duración de 10 meses.",
+    descripcion: "El Ciclo 6 (Educación Media) del programa de Bachillerato por Ciclos CLEI equivale al grado Once, el último ciclo antes de obtener el título de bachiller. Tiene una duración de 10 meses.",
     fotos: ["assets/clei-info.jpg"]
   }
 ];
