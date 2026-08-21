@@ -548,6 +548,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Galería con placeholders (marcadores de posición) */
 .galeria {
+  position: relative;
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   grid-template-rows: 1fr 1fr;
